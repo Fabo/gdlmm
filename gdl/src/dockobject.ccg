@@ -1,0 +1,45 @@
+/* Copyright (c) 2009  Fabien Parent <parent.f@gmail.com>
+ *
+ * This file is part of gdlmm.
+ *
+ * gdlmm is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 2.1 of the License,
+ * or (at your option) any later version.
+ *
+ * gdlmm is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#include "dockmaster.h"
+#include <glibmm/object.h>
+
+namespace Gdl
+{
+
+void DockObject::dock(DockObject& requestor, DockPlacement position)
+{
+  gdl_dock_object_dock(gobj(), requestor.gobj(), static_cast<GdlDockPlacement>(position), 0);
+}
+
+void DockObject::dock(DockObject& requestor, const Glib::ValueBase& other_data, DockPlacement position)
+{
+  gdl_dock_object_dock(gobj(), requestor.gobj(), static_cast<GdlDockPlacement>(position), const_cast<GValue*>(other_data.gobj()));
+}
+
+bool DockObject::reorder(DockObject& child, DockPlacement new_position)
+{
+  return gdl_dock_object_reorder(gobj(), child.gobj(), static_cast<GdlDockPlacement>(new_position), 0);
+}
+
+bool DockObject::reorder(DockObject& child, const Glib::ValueBase& other_data, DockPlacement new_position)
+{
+  return gdl_dock_object_reorder(gobj(), child.gobj(), static_cast<GdlDockPlacement>(new_position), const_cast<GValue*>(other_data.gobj()));
+}
+
+} // namespace Gdl

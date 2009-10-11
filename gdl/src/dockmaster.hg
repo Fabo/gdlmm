@@ -1,0 +1,64 @@
+/* Copyright (c) 2009  Fabien Parent <parent.f@gmail.com>
+ *
+ * This file is part of gdlmm.
+ *
+ * gdlmm is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 2.1 of the License,
+ * or (at your option) any later version.
+ *
+ * gdlmm is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+_DEFS(gdlmm,gdl)
+_PINCLUDE(glibmm/private/object_p.h)
+
+#include <glibmm/object.h>
+#include "dockobject.h"
+
+namespace Gdl
+{
+
+_CC_INCLUDE(gdl/gdl-dock-master.h)
+
+_WRAP_ENUM(SwitcherStyle, GdlSwitcherStyle, NO_GTYPE)
+
+class DockMaster : public Glib::Object
+{
+  _CLASS_GOBJECT(DockMaster, GdlDockMaster, GDL_DOCK_MASTER, Glib::Object, GObject)
+
+protected:
+  _CTOR_DEFAULT
+
+public:
+  _WRAP_CREATE()
+  
+  
+  _WRAP_METHOD(void add(DockObject& object), gdl_dock_master_add)
+  
+  _WRAP_METHOD(void remove(DockObject& object), gdl_dock_master_remove)
+  
+  _WRAP_METHOD(GdlDockObject* get_object(const Glib::ustring& nick_name) const, gdl_dock_master_get_object)
+  
+  _WRAP_METHOD(GdlDockObject* get_controller() const, gdl_dock_master_get_controller)
+  
+  _WRAP_METHOD(void set_controller(DockObject& object), gdl_dock_master_set_controller)
+  
+  
+  _WRAP_PROPERTY("default-title", Glib::ustring)
+  
+  _WRAP_PROPERTY("locked", int)
+  
+  _WRAP_PROPERTY("switcher-style", SwitcherStyle)
+  
+  
+  _WRAP_SIGNAL(void layout_changed(), "layout-changed")
+};
+
+} // namespace Gdl

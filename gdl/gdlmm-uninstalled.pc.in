@@ -1,0 +1,10 @@
+doxytagfile=${pc_top_builddir}/doc/reference/@GDLMM_MODULE_NAME@.tag
+htmlrefpub=http://library.gnome.org/@PACKAGE_TARNAME@/unstable/
+
+Name: gdlmm
+Description: C++ binding for gdl, not installed
+Version: @GDLMM_VERSION@
+URL: http://www.gtkmm.org/
+Requires: @GDLMM_MODULES@
+Libs: ${pc_top_builddir}/${pcfiledir}/gdlmm/libgdlmm-@GDLMM_API_VERSION@.la
+Cflags: -I${pc_top_builddir}/${pcfiledir} -I${pc_top_builddir}/${pcfiledir}/@srcdir@

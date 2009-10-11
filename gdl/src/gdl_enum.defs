@@ -1,0 +1,91 @@
+;; From gdl-dock-bar.h
+
+(define-enum-extended DockBarStyle
+  (in-module "Gdl")
+  (c-name "GdlDockBarStyle")
+  (values
+    '("icons" "GDL_DOCK_BAR_ICONS" "0")
+    '("text" "GDL_DOCK_BAR_TEXT" "1")
+    '("both" "GDL_DOCK_BAR_BOTH" "2")
+    '("auto" "GDL_DOCK_BAR_AUTO" "3")
+  )
+)
+
+;; From gdl-dock-item.h
+
+(define-flags-extended DockItemBehavior
+  (in-module "Gdl")
+  (c-name "GdlDockItemBehavior")
+  (values
+    '("normal" "GDL_DOCK_ITEM_BEH_NORMAL" "0")
+    '("never-floating" "GDL_DOCK_ITEM_BEH_NEVER_FLOATING" "1 << 0")
+    '("never-vertical" "GDL_DOCK_ITEM_BEH_NEVER_VERTICAL" "1 << 1")
+    '("never-horizontal" "GDL_DOCK_ITEM_BEH_NEVER_HORIZONTAL" "1 << 2")
+    '("locked" "GDL_DOCK_ITEM_BEH_LOCKED" "1 << 3")
+    '("cant-dock-top" "GDL_DOCK_ITEM_BEH_CANT_DOCK_TOP" "1 << 4")
+    '("cant-dock-bottom" "GDL_DOCK_ITEM_BEH_CANT_DOCK_BOTTOM" "1 << 5")
+    '("cant-dock-left" "GDL_DOCK_ITEM_BEH_CANT_DOCK_LEFT" "1 << 6")
+    '("cant-dock-right" "GDL_DOCK_ITEM_BEH_CANT_DOCK_RIGHT" "1 << 7")
+    '("cant-dock-center" "GDL_DOCK_ITEM_BEH_CANT_DOCK_CENTER" "1 << 8")
+    '("cant-close" "GDL_DOCK_ITEM_BEH_CANT_CLOSE" "1 << 9")
+    '("cant-iconify" "GDL_DOCK_ITEM_BEH_CANT_ICONIFY" "1 << 10")
+    '("no-grip" "GDL_DOCK_ITEM_BEH_NO_GRIP" "1 << 11")
+  )
+)
+
+(define-enum-extended DockItemFlags
+  (in-module "Gdl")
+  (c-name "GdlDockItemFlags")
+  (values
+  )
+)
+
+;; From gdl-dock-master.h
+
+(define-enum-extended SwitcherStyle
+  (in-module "Gdl")
+  (c-name "GdlSwitcherStyle")
+  (values
+    '("text" "GDL_SWITCHER_STYLE_TEXT" "0")
+    '("icon" "GDL_SWITCHER_STYLE_ICON" "1")
+    '("both" "GDL_SWITCHER_STYLE_BOTH" "2")
+    '("toolbar" "GDL_SWITCHER_STYLE_TOOLBAR" "3")
+    '("tabs" "GDL_SWITCHER_STYLE_TABS" "4")
+    '("none" "GDL_SWITCHER_STYLE_NONE" "5")
+  )
+)
+
+;; From gdl-dock-object.h
+
+(define-enum-extended DockParamFlags
+  (in-module "Gdl")
+  (c-name "GdlDockParamFlags")
+  (values
+  )
+)
+
+(define-flags-extended DockObjectFlags
+  (in-module "Gdl")
+  (c-name "GdlDockObjectFlags")
+  (values
+    '("automatic" "GDL_DOCK_AUTOMATIC" "1 << 0")
+    '("attached" "GDL_DOCK_ATTACHED" "1 << 1")
+    '("in-reflow" "GDL_DOCK_IN_REFLOW" "1 << 2")
+    '("in-detach" "GDL_DOCK_IN_DETACH" "1 << 3")
+  )
+)
+
+(define-enum-extended DockPlacement
+  (in-module "Gdl")
+  (c-name "GdlDockPlacement")
+  (values
+    '("none" "GDL_DOCK_NONE" "0")
+    '("top" "GDL_DOCK_TOP" "1")
+    '("bottom" "GDL_DOCK_BOTTOM" "2")
+    '("right" "GDL_DOCK_RIGHT" "3")
+    '("left" "GDL_DOCK_LEFT" "4")
+    '("center" "GDL_DOCK_CENTER" "5")
+    '("floating" "GDL_DOCK_FLOATING" "6")
+  )
+)
+

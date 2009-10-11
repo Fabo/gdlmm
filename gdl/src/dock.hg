@@ -1,0 +1,73 @@
+/* Copyright (c) 2009  Fabien Parent <parent.f@gmail.com>
+ *
+ * This file is part of gdlmm.
+ *
+ * gdlmm is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 2.1 of the License,
+ * or (at your option) any later version.
+ *
+ * gdlmm is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+_DEFS(gdlmm,gdl)
+_PINCLUDE(gdlmm/private/dockobject_p.h)
+
+#include "dockobject.h"
+#include "dockitem.h"
+#include "dockplaceholder.h"
+
+typedef _GdlDockItem GdlDockItem;
+
+
+namespace Gdl
+{
+
+_CC_INCLUDE(gdl/gdl-dock.h)
+
+class Dock : public DockObject
+{
+  _CLASS_GTKOBJECT(Dock, GdlDock, GDL_DOCK, DockObject, GdlDockObject)
+
+public:
+  _WRAP_CTOR(Dock(), gdl_dock_new)
+  _WRAP_CTOR(Dock(Dock& original, bool floating = false), gdl_dock_new_from)
+  
+  _WRAP_METHOD(void add_item(DockItem& item, DockPlacement place), gdl_dock_add_item)
+  
+  _WRAP_METHOD(void add_floating_item(DockItem& item, int x, int y, int width, int height), gdl_dock_add_floating_item)
+  
+  _WRAP_METHOD(DockItem* get_item_by_name(const Glib::ustring& name) const, gdl_dock_get_item_by_name)
+  
+  _WRAP_METHOD(DockPlaceholder* get_placeholder_by_name(const Glib::ustring& name) const, gdl_dock_get_placeholder_by_name)
+  
+  _WRAP_METHOD(Glib::ListHandle<DockItem*> get_named_items() const, gdl_dock_get_named_items)
+  
+  Dock* get_toplevel() const;
+  
+  _WRAP_METHOD(void xor_rect(GdkRectangle *rect), gdl_dock_xor_rect)
+  
+  
+  _WRAP_PROPERTY("default-title", Glib::ustring)
+  
+  _WRAP_PROPERTY("floating", bool)
+  
+  _WRAP_PROPERTY("floatx", int)
+  
+  _WRAP_PROPERTY("floaty", int)
+  
+  _WRAP_PROPERTY("height", int)
+  
+  _WRAP_PROPERTY("width", int)
+  
+  
+  _WRAP_SIGNAL(void layout_changed(), "layout-changed")
+};
+
+} // namespace Gdl

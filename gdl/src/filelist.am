@@ -1,0 +1,19 @@
+## This file is part of gdlmm.
+
+files_defs =			\
+	gdl.defs		\
+	gdl_enum.defs	\
+	gdl_extra.defs	\
+	gdl_method.defs	\
+	gdl_docs.xml	\
+	gdl_docs_override.xml
+
+files_hg  = \
+	dockobject.hg \
+	dockitem.hg \
+	dockplaceholder.hg \
+	dockmaster.hg \
+	docklayout.hg \
+	dock.hg \
+	dockbar.hg
+files_ccg = $(files_hg:.hg=.ccg)

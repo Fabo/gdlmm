@@ -1,0 +1,69 @@
+/* Copyright (c) 2009  Fabien Parent <parent.f@gmail.com>
+ *
+ * This file is part of gdlmm.
+ *
+ * gdlmm is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 2.1 of the License,
+ * or (at your option) any later version.
+ *
+ * gdlmm is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+_DEFS(gdlmm,gdl)
+_PINCLUDE(glibmm/private/object_p.h)
+
+#include <glibmm/object.h>
+#include <string>
+
+#include "dock.h"
+#include "dockmaster.h"
+
+namespace Gdl
+{
+
+_CC_INCLUDE(gdl/gdl-dock-layout.h)
+
+class DockLayout : public Glib::Object
+{
+  _CLASS_GOBJECT(DockLayout, GdlDockLayout, GDL_DOCK_LAYOUT, Glib::Object, GObject)
+
+protected:
+  DockLayout(Dock& dock);
+
+public:
+  _WRAP_CREATE(Dock& dock)
+  
+  _WRAP_METHOD(void attach(const Glib::RefPtr<DockMaster>& master), gdl_dock_layout_attach)
+  
+  _WRAP_METHOD(bool load_layout(const Glib::ustring& name), gdl_dock_layout_load_layout)
+  
+  _WRAP_METHOD(void save_layout(const Glib::ustring& name), gdl_dock_layout_save_layout)
+  
+  _WRAP_METHOD(void delete_layout(const Glib::ustring& name), gdl_dock_layout_delete_layout)
+  
+  _WRAP_METHOD(Glib::ListHandle<Glib::ustring> get_layouts(bool include_default), gdl_dock_layout_get_layouts)
+  
+  _WRAP_METHOD(void run_manager(), gdl_dock_layout_run_manager)
+  
+  _WRAP_METHOD(bool load_from_file(const std::string& filename), gdl_dock_layout_load_from_file)
+  
+  _WRAP_METHOD(bool save_to_file(const std::string& filename), gdl_dock_layout_save_to_file)
+  
+  _WRAP_METHOD(bool is_dirty() const, gdl_dock_layout_is_dirty)
+  
+  _WRAP_METHOD(Gtk::Widget* get_layouts_ui(), gdl_dock_layout_get_layouts_ui)
+  
+  
+  _WRAP_PROPERTY("dirty", bool)
+  
+  _WRAP_PROPERTY("master", Glib::RefPtr<DockMaster>)
+};
+
+} // namespace Gdl

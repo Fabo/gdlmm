@@ -1,0 +1,871 @@
+;; -*- scheme -*-
+; object definitions ...
+(define-object DockItemGrip
+  (in-module "Gdl")
+  (parent "GtkContainer")
+  (c-name "GdlDockItemGrip")
+  (gtype-id "GDL_TYPE_DOCK_ITEM_GRIP")
+)
+
+(define-object DockLayout
+  (in-module "Gdl")
+  (parent "GObject")
+  (c-name "GdlDockLayout")
+  (gtype-id "GDL_TYPE_DOCK_LAYOUT")
+)
+
+(define-object DockMaster
+  (in-module "Gdl")
+  (parent "GObject")
+  (c-name "GdlDockMaster")
+  (gtype-id "GDL_TYPE_DOCK_MASTER")
+)
+
+(define-object DockObject
+  (in-module "Gdl")
+  (parent "GtkContainer")
+  (c-name "GdlDockObject")
+  (gtype-id "GDL_TYPE_DOCK_OBJECT")
+)
+
+(define-object DockItem
+  (in-module "Gdl")
+  (parent "GdlDockObject")
+  (c-name "GdlDockItem")
+  (gtype-id "GDL_TYPE_DOCK_ITEM")
+)
+
+(define-object Dock
+  (in-module "Gdl")
+  (parent "GdlDockObject")
+  (c-name "GdlDock")
+  (gtype-id "GDL_TYPE_DOCK")
+)
+
+(define-object DockPlaceholder
+  (in-module "Gdl")
+  (parent "GdlDockObject")
+  (c-name "GdlDockPlaceholder")
+  (gtype-id "GDL_TYPE_DOCK_PLACEHOLDER")
+)
+
+;; Enumerations and flags ...
+
+(define-enum DockBarStyle
+  (in-module "Gdl")
+  (c-name "GdlDockBarStyle")
+  (gtype-id "GDL_TYPE_DOCK_BAR_STYLE")
+  (values
+    '("icons" "GDL_DOCK_BAR_ICONS")
+    '("text" "GDL_DOCK_BAR_TEXT")
+    '("both" "GDL_DOCK_BAR_BOTH")
+    '("auto" "GDL_DOCK_BAR_AUTO")
+  )
+)
+
+(define-flags DockItemBehavior
+  (in-module "Gdl")
+  (c-name "GdlDockItemBehavior")
+  (gtype-id "GDL_TYPE_DOCK_ITEM_BEHAVIOR")
+  (values
+    '("normal" "GDL_DOCK_ITEM_BEH_NORMAL")
+    '("never-floating" "GDL_DOCK_ITEM_BEH_NEVER_FLOATING")
+    '("never-vertical" "GDL_DOCK_ITEM_BEH_NEVER_VERTICAL")
+    '("never-horizontal" "GDL_DOCK_ITEM_BEH_NEVER_HORIZONTAL")
+    '("locked" "GDL_DOCK_ITEM_BEH_LOCKED")
+    '("cant-dock-top" "GDL_DOCK_ITEM_BEH_CANT_DOCK_TOP")
+    '("cant-dock-bottom" "GDL_DOCK_ITEM_BEH_CANT_DOCK_BOTTOM")
+    '("cant-dock-left" "GDL_DOCK_ITEM_BEH_CANT_DOCK_LEFT")
+    '("cant-dock-right" "GDL_DOCK_ITEM_BEH_CANT_DOCK_RIGHT")
+    '("cant-dock-center" "GDL_DOCK_ITEM_BEH_CANT_DOCK_CENTER")
+    '("cant-close" "GDL_DOCK_ITEM_BEH_CANT_CLOSE")
+    '("cant-iconify" "GDL_DOCK_ITEM_BEH_CANT_ICONIFY")
+    '("no-grip" "GDL_DOCK_ITEM_BEH_NO_GRIP")
+  )
+)
+
+(define-flags DockItemFlags
+  (in-module "Gdl")
+  (c-name "GdlDockItemFlags")
+  (gtype-id "GDL_TYPE_DOCK_ITEM_FLAGS")
+  (values
+    '("in-drag" "GDL_DOCK_IN_DRAG")
+    '("in-predrag" "GDL_DOCK_IN_PREDRAG")
+    '("iconified" "GDL_DOCK_ICONIFIED")
+    '("user-action" "GDL_DOCK_USER_ACTION")
+  )
+)
+
+(define-enum SwitcherStyle
+  (in-module "Gdl")
+  (c-name "GdlSwitcherStyle")
+  (gtype-id "GDL_TYPE_SWITCHER_STYLE")
+  (values
+    '("text" "GDL_SWITCHER_STYLE_TEXT")
+    '("icon" "GDL_SWITCHER_STYLE_ICON")
+    '("both" "GDL_SWITCHER_STYLE_BOTH")
+    '("toolbar" "GDL_SWITCHER_STYLE_TOOLBAR")
+    '("tabs" "GDL_SWITCHER_STYLE_TABS")
+    '("none" "GDL_SWITCHER_STYLE_NONE")
+  )
+)
+
+(define-flags DockParamFlags
+  (in-module "Gdl")
+  (c-name "GdlDockParamFlags")
+  (gtype-id "GDL_TYPE_DOCK_PARAM_FLAGS")
+  (values
+    '("export" "GDL_DOCK_PARAM_EXPORT")
+    '("after" "GDL_DOCK_PARAM_AFTER")
+  )
+)
+
+(define-flags DockObjectFlags
+  (in-module "Gdl")
+  (c-name "GdlDockObjectFlags")
+  (gtype-id "GDL_TYPE_DOCK_OBJECT_FLAGS")
+  (values
+    '("automatic" "GDL_DOCK_AUTOMATIC")
+    '("attached" "GDL_DOCK_ATTACHED")
+    '("in-reflow" "GDL_DOCK_IN_REFLOW")
+    '("in-detach" "GDL_DOCK_IN_DETACH")
+  )
+)
+
+(define-enum DockPlacement
+  (in-module "Gdl")
+  (c-name "GdlDockPlacement")
+  (gtype-id "GDL_TYPE_DOCK_PLACEMENT")
+  (values
+    '("none" "GDL_DOCK_NONE")
+    '("top" "GDL_DOCK_TOP")
+    '("bottom" "GDL_DOCK_BOTTOM")
+    '("right" "GDL_DOCK_RIGHT")
+    '("left" "GDL_DOCK_LEFT")
+    '("center" "GDL_DOCK_CENTER")
+    '("floating" "GDL_DOCK_FLOATING")
+  )
+)
+
+
+;; From gdl-dock-bar.h
+
+(define-function gdl_dock_bar_get_type
+  (c-name "gdl_dock_bar_get_type")
+  (return-type "GType")
+)
+
+(define-method bar_new
+  (of-object "GdlDock")
+  (c-name "gdl_dock_bar_new")
+  (return-type "GtkWidget*")
+)
+
+(define-method get_orientation
+  (of-object "GdlDockBar")
+  (c-name "gdl_dock_bar_get_orientation")
+  (return-type "GtkOrientation")
+)
+
+(define-method set_orientation
+  (of-object "GdlDockBar")
+  (c-name "gdl_dock_bar_set_orientation")
+  (return-type "none")
+  (parameters
+    '("GtkOrientation" "orientation")
+  )
+)
+
+(define-method set_style
+  (of-object "GdlDockBar")
+  (c-name "gdl_dock_bar_set_style")
+  (return-type "none")
+  (parameters
+    '("GdlDockBarStyle" "style")
+  )
+)
+
+(define-method get_style
+  (of-object "GdlDockBar")
+  (c-name "gdl_dock_bar_get_style")
+  (return-type "GdlDockBarStyle")
+)
+
+
+
+;; From gdl-dock.h
+
+(define-function gdl_dock_new
+  (c-name "gdl_dock_new")
+  (is-constructor-of "GdlDock")
+  (return-type "GtkWidget*")
+)
+
+(define-method new_from
+  (of-object "GdlDock")
+  (c-name "gdl_dock_new_from")
+  (return-type "GtkWidget*")
+  (parameters
+    '("gboolean" "floating")
+  )
+)
+
+(define-function gdl_dock_get_type
+  (c-name "gdl_dock_get_type")
+  (return-type "GType")
+)
+
+(define-method add_item
+  (of-object "GdlDock")
+  (c-name "gdl_dock_add_item")
+  (return-type "none")
+  (parameters
+    '("GdlDockItem*" "item")
+    '("GdlDockPlacement" "place")
+  )
+)
+
+(define-method add_floating_item
+  (of-object "GdlDock")
+  (c-name "gdl_dock_add_floating_item")
+  (return-type "none")
+  (parameters
+    '("GdlDockItem*" "item")
+    '("gint" "x")
+    '("gint" "y")
+    '("gint" "width")
+    '("gint" "height")
+  )
+)
+
+(define-method get_item_by_name
+  (of-object "GdlDock")
+  (c-name "gdl_dock_get_item_by_name")
+  (return-type "GdlDockItem*")
+  (parameters
+    '("const-gchar*" "name")
+  )
+)
+
+(define-method get_placeholder_by_name
+  (of-object "GdlDock")
+  (c-name "gdl_dock_get_placeholder_by_name")
+  (return-type "GdlDockPlaceholder*")
+  (parameters
+    '("const-gchar*" "name")
+  )
+)
+
+(define-method get_named_items
+  (of-object "GdlDock")
+  (c-name "gdl_dock_get_named_items")
+  (return-type "GList*")
+)
+
+(define-method get_toplevel
+  (of-object "GdlDockObject")
+  (c-name "gdl_dock_object_get_toplevel")
+  (return-type "GdlDock*")
+)
+
+(define-method xor_rect
+  (of-object "GdlDock")
+  (c-name "gdl_dock_xor_rect")
+  (return-type "none")
+  (parameters
+    '("GdkRectangle*" "rect")
+  )
+)
+
+
+
+;; From gdl-dock-item-grip.h
+
+(define-function gdl_dock_item_grip_get_type
+  (c-name "gdl_dock_item_grip_get_type")
+  (return-type "GType")
+)
+
+(define-method grip_new
+  (of-object "GdlDockItem")
+  (c-name "gdl_dock_item_grip_new")
+  (return-type "GtkWidget*")
+)
+
+(define-method set_label
+  (of-object "GdlDockItemGrip")
+  (c-name "gdl_dock_item_grip_set_label")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "label")
+  )
+)
+
+(define-method hide_handle
+  (of-object "GdlDockItemGrip")
+  (c-name "gdl_dock_item_grip_hide_handle")
+  (return-type "none")
+)
+
+(define-method show_handle
+  (of-object "GdlDockItemGrip")
+  (c-name "gdl_dock_item_grip_show_handle")
+  (return-type "none")
+)
+
+
+
+;; From gdl-dock-item.h
+
+(define-function gdl_dock_item_new
+  (c-name "gdl_dock_item_new")
+  (is-constructor-of "GdlDockItem")
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "name")
+    '("const-gchar*" "long_name")
+    '("GdlDockItemBehavior" "behavior")
+  )
+)
+
+(define-function gdl_dock_item_new_with_stock
+  (c-name "gdl_dock_item_new_with_stock")
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "name")
+    '("const-gchar*" "long_name")
+    '("const-gchar*" "stock_id")
+    '("GdlDockItemBehavior" "behavior")
+  )
+)
+
+(define-function gdl_dock_item_get_type
+  (c-name "gdl_dock_item_get_type")
+  (return-type "GType")
+)
+
+(define-method dock_to
+  (of-object "GdlDockItem")
+  (c-name "gdl_dock_item_dock_to")
+  (return-type "none")
+  (parameters
+    '("GdlDockItem*" "target")
+    '("GdlDockPlacement" "position")
+    '("gint" "docking_param")
+  )
+)
+
+(define-method set_orientation
+  (of-object "GdlDockItem")
+  (c-name "gdl_dock_item_set_orientation")
+  (return-type "none")
+  (parameters
+    '("GtkOrientation" "orientation")
+  )
+)
+
+(define-method get_tablabel
+  (of-object "GdlDockItem")
+  (c-name "gdl_dock_item_get_tablabel")
+  (return-type "GtkWidget*")
+)
+
+(define-method set_tablabel
+  (of-object "GdlDockItem")
+  (c-name "gdl_dock_item_set_tablabel")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "tablabel")
+  )
+)
+
+(define-method get_grip
+  (of-object "GdlDockItem")
+  (c-name "gdl_dock_item_get_grip")
+  (return-type "GtkWidget*")
+)
+
+(define-method hide_grip
+  (of-object "GdlDockItem")
+  (c-name "gdl_dock_item_hide_grip")
+  (return-type "none")
+)
+
+(define-method show_grip
+  (of-object "GdlDockItem")
+  (c-name "gdl_dock_item_show_grip")
+  (return-type "none")
+)
+
+(define-method bind
+  (of-object "GdlDockItem")
+  (c-name "gdl_dock_item_bind")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "dock")
+  )
+)
+
+(define-method unbind
+  (of-object "GdlDockItem")
+  (c-name "gdl_dock_item_unbind")
+  (return-type "none")
+)
+
+(define-method hide_item
+  (of-object "GdlDockItem")
+  (c-name "gdl_dock_item_hide_item")
+  (return-type "none")
+)
+
+(define-method iconify_item
+  (of-object "GdlDockItem")
+  (c-name "gdl_dock_item_iconify_item")
+  (return-type "none")
+)
+
+(define-method show_item
+  (of-object "GdlDockItem")
+  (c-name "gdl_dock_item_show_item")
+  (return-type "none")
+)
+
+(define-method lock
+  (of-object "GdlDockItem")
+  (c-name "gdl_dock_item_lock")
+  (return-type "none")
+)
+
+(define-method unlock
+  (of-object "GdlDockItem")
+  (c-name "gdl_dock_item_unlock")
+  (return-type "none")
+)
+
+(define-method set_default_position
+  (of-object "GdlDockItem")
+  (c-name "gdl_dock_item_set_default_position")
+  (return-type "none")
+  (parameters
+    '("GdlDockObject*" "reference")
+  )
+)
+
+(define-method preferred_size
+  (of-object "GdlDockItem")
+  (c-name "gdl_dock_item_preferred_size")
+  (return-type "none")
+  (parameters
+    '("GtkRequisition*" "req")
+  )
+)
+
+
+
+;; From gdl-dock-layout.h
+
+(define-function gdl_dock_layout_get_type
+  (c-name "gdl_dock_layout_get_type")
+  (return-type "GType")
+)
+
+(define-method layout_new
+  (of-object "GdlDock")
+  (c-name "gdl_dock_layout_new")
+  (return-type "GdlDockLayout*")
+)
+
+(define-method attach
+  (of-object "GdlDockLayout")
+  (c-name "gdl_dock_layout_attach")
+  (return-type "none")
+  (parameters
+    '("GdlDockMaster*" "master")
+  )
+)
+
+(define-method load_layout
+  (of-object "GdlDockLayout")
+  (c-name "gdl_dock_layout_load_layout")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "name")
+  )
+)
+
+(define-method save_layout
+  (of-object "GdlDockLayout")
+  (c-name "gdl_dock_layout_save_layout")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "name")
+  )
+)
+
+(define-method delete_layout
+  (of-object "GdlDockLayout")
+  (c-name "gdl_dock_layout_delete_layout")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "name")
+  )
+)
+
+(define-method get_layouts
+  (of-object "GdlDockLayout")
+  (c-name "gdl_dock_layout_get_layouts")
+  (return-type "GList*")
+  (parameters
+    '("gboolean" "include_default")
+  )
+)
+
+(define-method run_manager
+  (of-object "GdlDockLayout")
+  (c-name "gdl_dock_layout_run_manager")
+  (return-type "none")
+)
+
+(define-method load_from_file
+  (of-object "GdlDockLayout")
+  (c-name "gdl_dock_layout_load_from_file")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "filename")
+  )
+)
+
+(define-method save_to_file
+  (of-object "GdlDockLayout")
+  (c-name "gdl_dock_layout_save_to_file")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "filename")
+  )
+)
+
+(define-method is_dirty
+  (of-object "GdlDockLayout")
+  (c-name "gdl_dock_layout_is_dirty")
+  (return-type "gboolean")
+)
+
+(define-method get_ui
+  (of-object "GdlDockLayout")
+  (c-name "gdl_dock_layout_get_ui")
+  (return-type "GtkWidget*")
+)
+
+(define-method get_items_ui
+  (of-object "GdlDockLayout")
+  (c-name "gdl_dock_layout_get_items_ui")
+  (return-type "GtkWidget*")
+)
+
+(define-method get_layouts_ui
+  (of-object "GdlDockLayout")
+  (c-name "gdl_dock_layout_get_layouts_ui")
+  (return-type "GtkWidget*")
+)
+
+
+
+;; From gdl-dock-master.h
+
+(define-function gdl_dock_master_get_type
+  (c-name "gdl_dock_master_get_type")
+  (return-type "GType")
+)
+
+(define-method add
+  (of-object "GdlDockMaster")
+  (c-name "gdl_dock_master_add")
+  (return-type "none")
+  (parameters
+    '("GdlDockObject*" "object")
+  )
+)
+
+(define-method remove
+  (of-object "GdlDockMaster")
+  (c-name "gdl_dock_master_remove")
+  (return-type "none")
+  (parameters
+    '("GdlDockObject*" "object")
+  )
+)
+
+(define-method foreach
+  (of-object "GdlDockMaster")
+  (c-name "gdl_dock_master_foreach")
+  (return-type "none")
+  (parameters
+    '("GFunc" "function")
+    '("gpointer" "user_data")
+  )
+)
+
+(define-method foreach_toplevel
+  (of-object "GdlDockMaster")
+  (c-name "gdl_dock_master_foreach_toplevel")
+  (return-type "none")
+  (parameters
+    '("gboolean" "include_controller")
+    '("GFunc" "function")
+    '("gpointer" "user_data")
+  )
+)
+
+(define-method get_object
+  (of-object "GdlDockMaster")
+  (c-name "gdl_dock_master_get_object")
+  (return-type "GdlDockObject*")
+  (parameters
+    '("const-gchar*" "nick_name")
+  )
+)
+
+(define-method get_controller
+  (of-object "GdlDockMaster")
+  (c-name "gdl_dock_master_get_controller")
+  (return-type "GdlDockObject*")
+)
+
+(define-method set_controller
+  (of-object "GdlDockMaster")
+  (c-name "gdl_dock_master_set_controller")
+  (return-type "none")
+  (parameters
+    '("GdlDockObject*" "new_controller")
+  )
+)
+
+
+
+;; From gdl-dock-object.h
+
+(define-function gdl_dock_object_get_type
+  (c-name "gdl_dock_object_get_type")
+  (return-type "GType")
+)
+
+(define-method is_compound
+  (of-object "GdlDockObject")
+  (c-name "gdl_dock_object_is_compound")
+  (return-type "gboolean")
+)
+
+(define-method detach
+  (of-object "GdlDockObject")
+  (c-name "gdl_dock_object_detach")
+  (return-type "none")
+  (parameters
+    '("gboolean" "recursive")
+  )
+)
+
+(define-method get_parent_object
+  (of-object "GdlDockObject")
+  (c-name "gdl_dock_object_get_parent_object")
+  (return-type "GdlDockObject*")
+)
+
+(define-method freeze
+  (of-object "GdlDockObject")
+  (c-name "gdl_dock_object_freeze")
+  (return-type "none")
+)
+
+(define-method thaw
+  (of-object "GdlDockObject")
+  (c-name "gdl_dock_object_thaw")
+  (return-type "none")
+)
+
+(define-method reduce
+  (of-object "GdlDockObject")
+  (c-name "gdl_dock_object_reduce")
+  (return-type "none")
+)
+
+(define-method dock_request
+  (of-object "GdlDockObject")
+  (c-name "gdl_dock_object_dock_request")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "x")
+    '("gint" "y")
+    '("GdlDockRequest*" "request")
+  )
+)
+
+(define-method dock
+  (of-object "GdlDockObject")
+  (c-name "gdl_dock_object_dock")
+  (return-type "none")
+  (parameters
+    '("GdlDockObject*" "requestor")
+    '("GdlDockPlacement" "position")
+    '("GValue*" "other_data")
+  )
+)
+
+(define-method bind
+  (of-object "GdlDockObject")
+  (c-name "gdl_dock_object_bind")
+  (return-type "none")
+  (parameters
+    '("GObject*" "master")
+  )
+)
+
+(define-method unbind
+  (of-object "GdlDockObject")
+  (c-name "gdl_dock_object_unbind")
+  (return-type "none")
+)
+
+(define-method is_bound
+  (of-object "GdlDockObject")
+  (c-name "gdl_dock_object_is_bound")
+  (return-type "gboolean")
+)
+
+(define-method reorder
+  (of-object "GdlDockObject")
+  (c-name "gdl_dock_object_reorder")
+  (return-type "gboolean")
+  (parameters
+    '("GdlDockObject*" "child")
+    '("GdlDockPlacement" "new_position")
+    '("GValue*" "other_data")
+  )
+)
+
+(define-method present
+  (of-object "GdlDockObject")
+  (c-name "gdl_dock_object_present")
+  (return-type "none")
+  (parameters
+    '("GdlDockObject*" "child")
+  )
+)
+
+(define-method child_placement
+  (of-object "GdlDockObject")
+  (c-name "gdl_dock_object_child_placement")
+  (return-type "gboolean")
+  (parameters
+    '("GdlDockObject*" "child")
+    '("GdlDockPlacement*" "placement")
+  )
+)
+
+(define-function gdl_dock_param_get_type
+  (c-name "gdl_dock_param_get_type")
+  (return-type "GType")
+)
+
+(define-function gdl_dock_object_nick_from_type
+  (c-name "gdl_dock_object_nick_from_type")
+  (return-type "const-gchar*")
+  (parameters
+    '("GType" "type")
+  )
+)
+
+(define-function gdl_dock_object_type_from_nick
+  (c-name "gdl_dock_object_type_from_nick")
+  (return-type "GType")
+  (parameters
+    '("const-gchar*" "nick")
+  )
+)
+
+(define-function gdl_dock_object_set_type_for_nick
+  (c-name "gdl_dock_object_set_type_for_nick")
+  (return-type "GType")
+  (parameters
+    '("const-gchar*" "nick")
+    '("GType" "type")
+  )
+)
+
+
+
+;; From gdl-dock-placeholder.h
+
+(define-function gdl_dock_placeholder_get_type
+  (c-name "gdl_dock_placeholder_get_type")
+  (return-type "GType")
+)
+
+(define-function gdl_dock_placeholder_new
+  (c-name "gdl_dock_placeholder_new")
+  (is-constructor-of "GdlDockPlaceholder")
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "name")
+    '("GdlDockObject*" "object")
+    '("GdlDockPlacement" "position")
+    '("gboolean" "sticky")
+  )
+)
+
+(define-method attach
+  (of-object "GdlDockPlaceholder")
+  (c-name "gdl_dock_placeholder_attach")
+  (return-type "none")
+  (parameters
+    '("GdlDockObject*" "object")
+  )
+)
+
+
+
+;; From gdl.h
+
+
+
+;; From gdl-tools.h
+
+
+
+;; From libgdltypebuiltins.h
+
+(define-function gdl_dock_param_flags_get_type
+  (c-name "gdl_dock_param_flags_get_type")
+  (return-type "GType")
+)
+
+(define-function gdl_dock_object_flags_get_type
+  (c-name "gdl_dock_object_flags_get_type")
+  (return-type "GType")
+)
+
+(define-function gdl_dock_placement_get_type
+  (c-name "gdl_dock_placement_get_type")
+  (return-type "GType")
+)
+
+(define-function gdl_switcher_style_get_type
+  (c-name "gdl_switcher_style_get_type")
+  (return-type "GType")
+)
+
+(define-function gdl_dock_item_behavior_get_type
+  (c-name "gdl_dock_item_behavior_get_type")
+  (return-type "GType")
+)
+
+(define-function gdl_dock_item_flags_get_type
+  (c-name "gdl_dock_item_flags_get_type")
+  (return-type "GType")
+)
+
+(define-function gdl_dock_bar_style_get_type
+  (c-name "gdl_dock_bar_style_get_type")
+  (return-type "GType")
+)
+
+

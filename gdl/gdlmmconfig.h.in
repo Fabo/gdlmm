@@ -1,0 +1,10 @@
+/* This file is part of gdlmm. */
+
+/* Major version number of gdlmm. */
+#undef GDLMM_MAJOR_VERSION
+
+/* Micro version number of gdlmm. */
+#undef GDLMM_MICRO_VERSION
+
+/* Minor version number of gdlmm. */
+#undef GDLMM_MINOR_VERSION

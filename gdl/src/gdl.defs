@@ -1,0 +1,4 @@
+;; Include generated API definition files
+(include gdl_enum.defs)
+(include gdl_method.defs)
+(include gdl_extra.defs)

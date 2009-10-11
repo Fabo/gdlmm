@@ -1,0 +1,118 @@
+/* Copyright (c) 2009  Fabien Parent <parent.f@gmail.com>
+ *
+ * This file is part of gdlmm.
+ *
+ * gdlmm is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 2.1 of the License,
+ * or (at your option) any later version.
+ *
+ * gdlmm is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+_DEFS(gdlmm,gdl)
+_CONFIGINCLUDE(gdlmmconfig.h)
+_PINCLUDE(gtkmm/private/container_p.h)
+
+#include <gtkmm/container.h>
+
+namespace Gdl
+{
+
+_CC_INCLUDE(gdl/gdl-dock-object.h)
+
+class DockMaster;
+
+_WRAP_ENUM(DockParamFlags, GdlDockParamFlags)
+_WRAP_ENUM(DockObjectFlags, GdlDockObjectFlags, NO_GTYPE)
+_WRAP_ENUM(DockPlacement, GdlDockPlacement, NO_GTYPE)
+
+class DockObject : public Gtk::Container
+{
+  _CLASS_GTKOBJECT(DockObject, GdlDockObject, GDL_DOCK_OBJECT, Gtk::Container, GtkContainer)
+
+protected:
+  _CTOR_DEFAULT
+
+public:
+  _WRAP_METHOD(bool is_compound() const, gdl_dock_object_is_compound)
+  
+  _WRAP_METHOD(void detach(bool recursive = true), gdl_dock_object_detach)
+  
+  _WRAP_METHOD(DockObject* get_parent_object() const, gdl_dock_object_get_parent_object)
+  
+  _WRAP_METHOD(void freeze(), gdl_dock_object_freeze)
+  
+  _WRAP_METHOD(void thaw(), gdl_dock_object_thaw)
+  
+  _WRAP_METHOD(void reduce(), gdl_dock_object_reduce)
+  
+  //_WRAP_METHOD(bool dock_request(int x, int y, const DockRequest& dock_request), gdl_dock_object_dock_request)
+  
+  template <class OtherType>
+  void dock(DockObject& requestor, const OtherType& other_data, DockPlacement position = static_cast<DockPlacement>(DOCK_NONE));
+  
+  void dock(DockObject& requestor, DockPlacement position = static_cast<DockPlacement>(DOCK_NONE));
+  
+  _WRAP_METHOD(void bind(const Glib::RefPtr<DockMaster>& master), gdl_dock_object_bind)
+  
+  _WRAP_METHOD(void unbind(), gdl_dock_object_unbind)
+  
+  _WRAP_METHOD(bool is_bound() const, gdl_dock_object_is_bound)
+  
+  template <class OtherType>
+  bool reorder(DockObject& child, const OtherType& other_data, DockPlacement new_position = static_cast<DockPlacement>(DOCK_NONE));
+  
+  bool reorder(DockObject& child, DockPlacement new_position = static_cast<DockPlacement>(DOCK_NONE));
+  
+  _WRAP_METHOD(void present(DockObject& child), gdl_dock_object_present)
+  
+  _WRAP_METHOD(bool child_placement(DockObject& child, DockPlacement placement = static_cast<DockPlacement>(DOCK_NONE)), gdl_dock_object_child_placement)
+  
+  
+  _WRAP_PROPERTY("long-name", Glib::ustring)
+  
+  _WRAP_PROPERTY("name", Glib::ustring)
+  
+  _WRAP_PROPERTY("master", Glib::RefPtr<DockMaster>)
+  
+  _WRAP_PROPERTY("stock-id", Glib::ustring)
+  
+  
+  _WRAP_SIGNAL(void detach(bool arg1), "detach")
+  
+  //_WRAP_SIGNAL(void dock(DockObject& arg1, DockPlacement arg2, const Glib::ValueBase* arg3), "dock")
+  
+protected:
+  _IGNORE(gdl_dock_object_dock)
+  void dock(DockObject& requestor, const Glib::ValueBase& other_data, DockPlacement position = static_cast<DockPlacement>(DOCK_NONE));
+  
+  _IGNORE(gdl_dock_object_reorder)
+  bool reorder(DockObject& child, const Glib::ValueBase& other_data, DockPlacement new_position = static_cast<DockPlacement>(DOCK_NONE));
+};
+
+template <class OtherType>
+void DockObject::dock(DockObject& requestor, const OtherType& other_data, DockPlacement position)
+{
+  Glib::Value<OtherType> other_value;
+  other_value.init(Glib::Value<OtherType>::value_type());
+  
+  dock(requestor, other_value, position);
+}
+
+template <class OtherType>
+bool DockObject::reorder(DockObject& child, const OtherType& other_data, DockPlacement new_position)
+{
+  Glib::Value<OtherType> other_value;
+  other_value.init(Glib::Value<OtherType>::value_type());
+  
+  return dock(child, other_value, new_position);
+}
+
+} // namespace Gdl

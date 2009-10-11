@@ -1,0 +1,54 @@
+/* Copyright (c) 2009  Fabien Parent <parent.f@gmail.com>
+ *
+ * This file is part of gdlmm.
+ *
+ * gdlmm is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 2.1 of the License,
+ * or (at your option) any later version.
+ *
+ * gdlmm is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+_DEFS(gdlmm,gdl)
+_PINCLUDE(gtkmm/private/box_p.h)
+
+#include <gtkmm/box.h>
+#include "dock.h"
+#include "dockmaster.h"
+
+namespace Gdl
+{
+
+_CC_INCLUDE(gdl/gdl-dock-bar.h)
+
+_WRAP_ENUM(DockBarStyle, GdlDockBarStyle, NO_GTYPE)
+
+class DockBar : public Gtk::Box
+{
+  _CLASS_GTKOBJECT(DockBar, GdlDockBar, GDL_DOCK_BAR, Gtk::Box, GtkBox)
+
+public:
+  DockBar(Dock& dock);
+  
+  _WRAP_METHOD(Gtk::Orientation get_orientation() const, gdl_dock_bar_get_orientation)
+  
+  _WRAP_METHOD(void set_orientation(Gtk::Orientation orientation), gdl_dock_bar_set_orientation)
+  
+  _WRAP_METHOD(void set_style(DockBarStyle style), gdl_dock_bar_set_style)
+  
+  _WRAP_METHOD(DockBarStyle get_style() const, gdl_dock_bar_get_style)
+  
+  
+  _WRAP_PROPERTY("dockbar-style", DockBarStyle)
+  
+  _WRAP_PROPERTY("master", Glib::RefPtr<DockMaster>)
+};
+
+} // namespace Gdl

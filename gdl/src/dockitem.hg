@@ -1,0 +1,96 @@
+/* Copyright (c) 2009  Fabien Parent <parent.f@gmail.com>
+ *
+ * This file is part of gdlmm.
+ *
+ * gdlmm is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 2.1 of the License,
+ * or (at your option) any later version.
+ *
+ * gdlmm is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+_DEFS(gdlmm,gdl)
+_CONFIGINCLUDE(gdlmmconfig.h)
+_PINCLUDE(gdlmm/private/dockobject_p.h)
+
+#include <gtkmm.h>
+#include "dockobject.h"
+
+namespace Gdl
+{
+
+_CC_INCLUDE(gdl/gdl-dock-item.h)
+
+_WRAP_ENUM(DockItemBehavior, GdlDockItemBehavior, NO_GTYPE)
+_WRAP_ENUM(DockItemFlags, GdlDockItemFlags)
+
+class DockItem : public DockObject
+{
+  _CLASS_GTKOBJECT(DockItem, GdlDockItem, GDL_DOCK_ITEM, DockObject, GdlDockObject)
+
+public:
+  _WRAP_CTOR(DockItem(const Glib::ustring& name, const Glib::ustring& long_name, DockItemBehavior behavior = static_cast<DockItemBehavior>(DOCK_ITEM_BEH_NORMAL)), gdl_dock_item_new)
+  
+  _WRAP_CTOR(DockItem(const Glib::ustring& name, const Glib::ustring& long_name, const Gtk::StockID& stock_id, DockItemBehavior behavior = static_cast<DockItemBehavior>(DOCK_ITEM_BEH_NORMAL)), gdl_dock_item_new_with_stock)
+  
+  _WRAP_METHOD(void dock_to(DockItem& target, DockPlacement position = static_cast<DockPlacement>(DOCK_NONE), int docking_param = -1), gdl_dock_item_dock_to)
+  
+  void dock_floating(int docking_param = -1);
+  
+  _WRAP_METHOD(void set_orientation(Gtk::Orientation orientation), gdl_dock_item_set_orientation)
+  
+  _WRAP_METHOD(Gtk::Widget* get_tablabel() const, gdl_dock_item_get_tablabel)
+  
+  _WRAP_METHOD(void set_tablabel(Gtk::Widget& tablabel), gdl_dock_item_set_tablabel)
+  
+  _WRAP_METHOD(void hide_grip(), gdl_dock_item_hide_grip)
+  
+  _WRAP_METHOD(void show_grip(), gdl_dock_item_show_grip)
+  
+  _WRAP_METHOD(void bind(Gtk::Widget& dock), gdl_dock_item_bind)
+  
+  _WRAP_METHOD(void unbind(), gdl_dock_item_unbind)
+  
+  _WRAP_METHOD(void hide_item(), gdl_dock_item_hide_item)
+  
+  _WRAP_METHOD(void iconify_item(), gdl_dock_item_iconify_item)
+  
+  _WRAP_METHOD(void show_item(), gdl_dock_item_show_item)
+  
+  _WRAP_METHOD(void lock(), gdl_dock_item_lock)
+  
+  _WRAP_METHOD(void unlock(), gdl_dock_item_unlock)
+  
+  _WRAP_METHOD(void set_default_position(DockObject& reference), gdl_dock_item_set_default_position)
+  
+  _WRAP_METHOD(void preferred_size(Gtk::Requisition* req), gdl_dock_item_preferred_size)
+  
+  
+  _WRAP_PROPERTY("behavior", DockItemBehavior)
+  
+  _WRAP_PROPERTY("locked", bool)
+  
+  _WRAP_PROPERTY("orientation", Gtk::Orientation)
+  
+  _WRAP_PROPERTY("preferred-height", int)
+  
+  _WRAP_PROPERTY("preferred-width", int)
+  
+  _WRAP_PROPERTY("resize", bool)
+  
+  
+  _WRAP_SIGNAL(void dock_drag_begin(), "dock-drag-begin")
+  
+  _WRAP_SIGNAL(void dock_drag_end(bool cancel), "dock-drag-end")
+  
+  _WRAP_SIGNAL(void dock_drag_motion(int x, int y), "dock-drag-motion")
+};
+
+} // namespace Gdl
