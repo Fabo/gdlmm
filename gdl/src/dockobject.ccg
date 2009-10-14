@@ -19,6 +19,8 @@
 #include "dockmaster.h"
 #include <glibmm/object.h>
 
+#include <gdl/gdl-dock-master.h>
+
 namespace Gdl
 {
 
@@ -40,6 +42,11 @@ bool DockObject::reorder(DockObject& child, DockPlacement new_position)
 bool DockObject::reorder(DockObject& child, const Glib::ValueBase& other_data, DockPlacement new_position)
 {
   return gdl_dock_object_reorder(gobj(), child.gobj(), static_cast<GdlDockPlacement>(new_position), const_cast<GValue*>(other_data.gobj()));
+}
+
+Glib::RefPtr<DockMaster> DockObject::get_master()
+{
+	return Glib::wrap(GDL_DOCK_OBJECT_GET_MASTER(gobj()), true);
 }
 
 } // namespace Gdl

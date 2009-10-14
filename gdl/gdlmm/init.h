@@ -1,5 +1,8 @@
-#ifndef _GDLMM_H
-#define _GDLMM_H
+// -*- c++ -*-
+#ifndef _GDLMM_INIT_H
+#define _GDLMM_INIT_H
+
+#include "wrap_init.h"
 
 /* Copyright (c) 2009  Fabien Parent <parent.f@gmail.com>
  *
@@ -20,14 +23,12 @@
  */
 
 
-#include <gdlmm/init.h>
-#include <gdlmm/dock.h>
-#include <gdlmm/dockbar.h>
-#include <gdlmm/dockitem.h>
-#include <gdlmm/docklayout.h>
-#include <gdlmm/dockmaster.h>
-#include <gdlmm/dockobject.h>
-#include <gdlmm/dockplaceholder.h>
+namespace Gdl
+{
 
-#endif /* #ifndef _GDLMM_H */
+void init() ;
+
+} // namespace Gdl
+
+#endif //_GDLMM_INIT_H
 

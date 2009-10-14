@@ -22,106 +22,77 @@
 #include <gdlmm.h>
 #include <gdl/gdl.h>
 
+
 Gtk::Widget* create_text_item(void)
 {
-	GtkWidget *vbox1;
-	GtkWidget *scrolledwindow1;
-	GtkWidget *text;
-
-	vbox1 = gtk_vbox_new (FALSE, 0);
-	gtk_widget_show (vbox1);
-
-	scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
-	gtk_widget_show (scrolledwindow1);
-	gtk_box_pack_start (GTK_BOX (vbox1), scrolledwindow1, TRUE, TRUE, 0);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1),
-					GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-        gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow1),
-                                             GTK_SHADOW_ETCHED_IN);
-	text = gtk_text_view_new ();
-        g_object_set (text, "wrap-mode", GTK_WRAP_WORD, NULL);
-	gtk_widget_show (text);
-	gtk_container_add (GTK_CONTAINER (scrolledwindow1), text);
-
-	return Glib::wrap(vbox1);
+	Gtk::VBox* vbox = new Gtk::VBox(false);
+	Gtk::TextView* text = new Gtk::TextView();
+	Gtk::ScrolledWindow* scrolledwindow = new Gtk::ScrolledWindow();
+	scrolledwindow->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+	scrolledwindow->set_shadow_type(Gtk::SHADOW_ETCHED_IN);
+	scrolledwindow->add(*Gtk::manage(text));
+	vbox->pack_start(*Gtk::manage(scrolledwindow));
+	vbox->show_all();
+	
+	return Gtk::manage(vbox);
 }
 
-Gtk::Widget* create_item(const gchar *button_title)
+Gtk::Widget* create_item(const Glib::ustring& button_title)
 {
-	GtkWidget *vbox1;
-	GtkWidget *button1;
-
-	vbox1 = gtk_vbox_new (FALSE, 0);
-	gtk_widget_show (vbox1);
-
-	button1 = gtk_button_new_with_label (button_title);
-	gtk_widget_show (button1);
-	gtk_box_pack_start (GTK_BOX (vbox1), button1, TRUE, TRUE, 0);
-
-	return Glib::wrap(vbox1);
+	Gtk::VBox* vbox = new Gtk::VBox(false);
+	Gtk::Button* button = new Gtk::Button(button_title);
+	vbox->pack_start(*Gtk::manage(button));
+	vbox->show_all();
+	
+	return Gtk::manage(vbox);
 }
 
-void on_style_button_toggled(GtkRadioButton *button, GdlDock *dock)
+void on_style_button_toggled(Gtk::RadioButton* button, Gdl::Dock& dock, Gdl::SwitcherStyle style)
 {
-	gboolean active;
-	GdlDockMaster *master = GDL_DOCK_OBJECT_GET_MASTER (dock);
-	GdlSwitcherStyle style =
-		static_cast<GdlSwitcherStyle>(GPOINTER_TO_INT (g_object_get_data (G_OBJECT (button),
-						    "__style_id")));
-	active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (button));
-	if (active) {
-	    g_object_set (master, "switcher-style", style, NULL);
+	Glib::RefPtr<Gdl::DockMaster> master = dock.property_master();
+	if (button->get_active())
+	{
+		master->property_switcher_style() = style;
 	}
 }
 
-GtkWidget* create_style_button (GtkWidget *dock, GtkWidget *box, GtkWidget *group,
-		     GdlSwitcherStyle style, const gchar *style_text)
+Gtk::RadioButton* create_style_button(Gdl::Dock& dock, Gtk::VBox* box, Gtk::RadioButtonGroup* group, Gdl::SwitcherStyle style, const Glib::ustring& style_text)
 {
-	GdlSwitcherStyle current_style;
-	GtkWidget *button1;
-	GdlDockMaster *master = GDL_DOCK_OBJECT_GET_MASTER (dock);
+	Gdl::SwitcherStyle current_style;
+	Gtk::RadioButton* button;
+	if (group)
+		button = new Gtk::RadioButton(*group, style_text);
+	else
+		button = new Gtk::RadioButton(style_text);
 	
-	g_object_get (master, "switcher-style", &current_style, NULL);
-	button1 = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (group),
-						   style_text);
-	gtk_widget_show (button1);
-	g_object_set_data (G_OBJECT (button1), "__style_id",
-			   GINT_TO_POINTER (style));
-	if (current_style == style) {
-	    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button1), TRUE);
+	Glib::RefPtr<Gdl::DockMaster> master = dock.property_master();
+	current_style = master->property_switcher_style();
+	
+	if (current_style == style)
+	{
+		button->set_active(true);
 	}
-	g_signal_connect (button1, "toggled",
-			  G_CALLBACK (on_style_button_toggled),
-			  dock);
-	gtk_box_pack_start (GTK_BOX (box), button1, FALSE, FALSE, 0);
-	return button1;
+	
+	button->signal_toggled().connect(sigc::bind<Gtk::RadioButton*, Gdl::Dock&, Gdl::SwitcherStyle>(sigc::ptr_fun(&on_style_button_toggled), button, dock, style));
+	box->pack_start(*Gtk::manage(button), false, false);
+	return button;
 }
 
-Gtk::Widget* create_styles_item(GtkWidget *dock)
+Gtk::Widget* create_styles_item(Gdl::Dock& dock)
 {
-	GtkWidget *vbox1;
-	GtkWidget *group;
+	Gtk::VBox* vbox = new Gtk::VBox(false);
+	Gtk::RadioButtonGroup* group;
 	
-	vbox1 = gtk_vbox_new (FALSE, 0);
-	gtk_widget_show (vbox1);
-
-	group = create_style_button (dock, vbox1, NULL,
-				     GDL_SWITCHER_STYLE_ICON, "Only icon");
-	group = create_style_button (dock, vbox1, group,
-				     GDL_SWITCHER_STYLE_TEXT, "Only text");
-	group = create_style_button (dock, vbox1, group,
-				     GDL_SWITCHER_STYLE_BOTH,
-				     "Both icons and texts");
-	group = create_style_button (dock, vbox1, group,
-				     GDL_SWITCHER_STYLE_TOOLBAR,
-				     "Desktop toolbar style");
-	group = create_style_button (dock, vbox1, group,
-				     GDL_SWITCHER_STYLE_TABS,
-				     "Notebook tabs");
-	group = create_style_button (dock, vbox1, group,
-				     GDL_SWITCHER_STYLE_NONE,
-                                     "None of the above");
-	return Glib::wrap(vbox1);
+	group = &(create_style_button(dock, vbox, 0, Gdl::SWITCHER_STYLE_ICON, "Only icon")->get_group());
+	create_style_button(dock, vbox, group, Gdl::SWITCHER_STYLE_TEXT, "Only text");
+	create_style_button(dock, vbox, group, Gdl::SWITCHER_STYLE_BOTH, "Both icons and texts");
+	create_style_button(dock, vbox, group, Gdl::SWITCHER_STYLE_TOOLBAR, "Desktop toolbar style");
+	create_style_button(dock, vbox, group, Gdl::SWITCHER_STYLE_TABS, "Notebook tabs");
+	create_style_button(dock, vbox, group, Gdl::SWITCHER_STYLE_NONE, "None of the above");
+	
+	vbox->show_all();
+	
+	return Gtk::manage(vbox);
 }
 
 void button_dump_cb(Glib::RefPtr<Gdl::DockLayout> layout)
@@ -159,6 +130,7 @@ void save_layout_cb(Glib::RefPtr<Gdl::DockLayout> layout)
 int main(int argc, char** argv)
 {
 	Gtk::Main kit(argc, argv);
+	Gdl::init();
 	Gtk::Window window;
 	
 	window.set_title("Docking widget test");
@@ -184,7 +156,7 @@ int main(int argc, char** argv)
 	dock.add_item(*(items[0]), Gdl::DOCK_BOTTOM);
 	
 	item1.add(*create_text_item());
-	item2.add(*create_styles_item((GtkWidget*) dock.gobj()));
+	item2.add(*create_styles_item(dock));
 	item3.add(*create_item("Button 3"));
 	items[0]->add(*create_text_item());
 	

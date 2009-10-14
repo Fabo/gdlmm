@@ -1,6 +1,3 @@
-#ifndef _GDLMM_H
-#define _GDLMM_H
-
 /* Copyright (c) 2009  Fabien Parent <parent.f@gmail.com>
  *
  * This file is part of gdlmm.
@@ -19,15 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "init.h"
+#include <gtkmm/main.h>
 
-#include <gdlmm/init.h>
-#include <gdlmm/dock.h>
-#include <gdlmm/dockbar.h>
-#include <gdlmm/dockitem.h>
-#include <gdlmm/docklayout.h>
-#include <gdlmm/dockmaster.h>
-#include <gdlmm/dockobject.h>
-#include <gdlmm/dockplaceholder.h>
+namespace Gdl
+{
 
-#endif /* #ifndef _GDLMM_H */
+void init()
+{
+  static bool is_init = false;
+  if (!is_init)
+  {
+    Gtk::Main::init_gtkmm_internals();
+    Gdl::wrap_init();
+    is_init = true;
+  }
+}
 
+} // namespace Gdl

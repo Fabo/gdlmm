@@ -75,6 +75,8 @@ public:
   
   _WRAP_METHOD(bool child_placement(DockObject& child, DockPlacement placement = static_cast<DockPlacement>(DOCK_NONE)), gdl_dock_object_child_placement)
   
+  Glib::RefPtr<DockMaster> get_master();
+  
   
   _WRAP_PROPERTY("long-name", Glib::ustring)
   

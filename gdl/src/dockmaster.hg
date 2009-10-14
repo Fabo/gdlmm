@@ -22,12 +22,14 @@ _PINCLUDE(glibmm/private/object_p.h)
 #include <glibmm/object.h>
 #include "dockobject.h"
 
+#include <gdl/libgdltypebuiltins.h>
+
 namespace Gdl
 {
 
 _CC_INCLUDE(gdl/gdl-dock-master.h)
 
-_WRAP_ENUM(SwitcherStyle, GdlSwitcherStyle, NO_GTYPE)
+_WRAP_ENUM(SwitcherStyle, GdlSwitcherStyle)
 
 class DockMaster : public Glib::Object
 {
@@ -38,7 +40,6 @@ protected:
 
 public:
   _WRAP_CREATE()
-  
   
   _WRAP_METHOD(void add(DockObject& object), gdl_dock_master_add)
   
