@@ -17,8 +17,6 @@
  */
 
 #include <gtkmm.h>
-#include <gtk/gtk.h>
-
 #include <gdlmm.h>
 #include <gdl/gdl.h>
 
