@@ -14,8 +14,11 @@ _CONVERSION(`GList*',`Glib::ListHandle<DockItem*>',__FL2H_SHALLOW)
 _CONVERSION(`const Glib::RefPtr<DockMaster>&',`GdlDockMaster*',__CONVERT_REFPTR_TO_P)
 _CONVERSION(`const Glib::RefPtr<DockMaster>&',`GObject*', G_OBJECT($3->gobj()))
 
-dnl _CONVERSION(`GValue*', `const Glib::ValueBase*', Glib::wrap($3))
-dnl _CONVERSION(`const Glib::ValueBase*', `GValue*', const_cast<GValue*>($3->gobj()))
+_CONVERSION(`GValue*', `const Glib::ValueBase*', reinterpret_cast<const Glib::ValueBase*>($3))
+_CONVERSION(`const Glib::ValueBase*', `GValue*', const_cast<GValue*>($3->gobj()))
+
+dnl _CONVERSION(`GValue*', `const Glib::ValueBase*', reinterpret_cast<const Glib::ValueBase*>($3))
+dnl _CONVERSION(`const Glib::ValueBase*', `GValue*', const_cast<GValue*>(reinterpret_cast<const GValue*>($3)))
 
 _CONVERSION(`const Glib::ustring', `const gchar*', $3.c_str())
 

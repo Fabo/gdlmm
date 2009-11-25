@@ -87,9 +87,9 @@ public:
   _WRAP_PROPERTY("stock-id", Glib::ustring)
   
   
-  _WRAP_SIGNAL(void detach(bool arg1), "detach")
+  _WRAP_SIGNAL(void detach(bool arg1), "detach", no_default_handler)
   
-  //_WRAP_SIGNAL(void dock(DockObject& arg1, DockPlacement arg2, const Glib::ValueBase* arg3), "dock")
+  _WRAP_SIGNAL(void dock(DockObject& arg1, DockPlacement arg2, const Glib::ValueBase* arg3), "dock", no_default_handler)
   
 protected:
   _IGNORE(gdl_dock_object_dock)
