@@ -23,8 +23,7 @@ namespace Gdl
 
 DockBar::DockBar(Dock& dock)
 :
-  Glib::ObjectBase(0),
-  Gtk::Box(Glib::ConstructParams(dockbar_class_.init(), "master", GDL_DOCK_OBJECT_GET_MASTER(dock.gobj()), (char*) 0))
+  _CONSTRUCT("master", GDL_DOCK_OBJECT_GET_MASTER(dock.gobj()))
 {
 
 }
