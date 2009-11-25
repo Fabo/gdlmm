@@ -36,9 +36,11 @@ class DockItem : public DockObject
   _CLASS_GTKOBJECT(DockItem, GdlDockItem, GDL_DOCK_ITEM, DockObject, GdlDockObject)
 
 public:
-  _WRAP_CTOR(DockItem(const Glib::ustring& name, const Glib::ustring& long_name, DockItemBehavior behavior = static_cast<DockItemBehavior>(DOCK_ITEM_BEH_NORMAL)), gdl_dock_item_new)
+  DockItem(const Glib::ustring& name, const Glib::ustring& long_name, DockItemBehavior behavior = static_cast<DockItemBehavior>(DOCK_ITEM_BEH_NORMAL));
+  //_WRAP_CTOR(DockItem(const Glib::ustring& name, const Glib::ustring& long_name, DockItemBehavior behavior = static_cast<DockItemBehavior>(DOCK_ITEM_BEH_NORMAL)), gdl_dock_item_new)
   
-  _WRAP_CTOR(DockItem(const Glib::ustring& name, const Glib::ustring& long_name, const Gtk::StockID& stock_id, DockItemBehavior behavior = static_cast<DockItemBehavior>(DOCK_ITEM_BEH_NORMAL)), gdl_dock_item_new_with_stock)
+  DockItem(const Glib::ustring& name, const Glib::ustring& long_name, const Gtk::StockID& stock_id, DockItemBehavior behavior = static_cast<DockItemBehavior>(DOCK_ITEM_BEH_NORMAL));
+  //_WRAP_CTOR(DockItem(const Glib::ustring& name, const Glib::ustring& long_name, const Gtk::StockID& stock_id, DockItemBehavior behavior = static_cast<DockItemBehavior>(DOCK_ITEM_BEH_NORMAL)), gdl_dock_item_new_with_stock)
   
   _WRAP_METHOD(void dock_to(DockItem& target, DockPlacement position = static_cast<DockPlacement>(DOCK_NONE), int docking_param = -1), gdl_dock_item_dock_to)
   

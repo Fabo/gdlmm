@@ -19,6 +19,28 @@
 namespace Gdl
 {
 
+DockItem::DockItem(const Glib::ustring& name, const Glib::ustring& long_name, DockItemBehavior behavior)
+:
+  _CONSTRUCT("name", name.c_str(), "long-name", long_name.c_str(), "behavior", static_cast<GdlDockItemBehavior>(behavior))
+{
+  GdlDockItem* item = this->gobj();
+  int flags = GDL_DOCK_OBJECT(item)->flags;
+  flags &= ~GDL_DOCK_AUTOMATIC;
+  GDL_DOCK_OBJECT(item)->flags = static_cast<GdlDockObjectFlags>(flags);
+  gdl_dock_item_set_tablabel(item, gtk_label_new(long_name.c_str()));
+}
+
+DockItem::DockItem(const Glib::ustring& name, const Glib::ustring& long_name, const Gtk::StockID& stock_id, DockItemBehavior behavior)
+:
+  _CONSTRUCT("name", name.c_str(), "long-name", long_name.c_str(), "stock-id", stock_id.get_c_str(), "behavior", static_cast<GdlDockItemBehavior>(behavior))
+{
+  GdlDockItem* item = this->gobj();
+  int flags = GDL_DOCK_OBJECT(item)->flags;
+  flags &= ~GDL_DOCK_AUTOMATIC;
+  GDL_DOCK_OBJECT(item)->flags = static_cast<GdlDockObjectFlags>(flags);
+  gdl_dock_item_set_tablabel(item, gtk_label_new(long_name.c_str()));
+}
+
 void DockItem::dock_floating(int docking_param)
 {
   gdl_dock_item_dock_to(gobj(), 0, GDL_DOCK_FLOATING, docking_param);
