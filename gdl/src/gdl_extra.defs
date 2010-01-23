@@ -647,6 +647,12 @@
   )
 )
 
+(define-signal selected
+  (of-object "GdlDockItem")
+  (return-type "void")
+  (when "first")
+)
+
 (define-property user-data
   (of-object "GdlDockItem")
   (prop-type "GParamPointer")

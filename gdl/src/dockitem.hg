@@ -91,6 +91,8 @@ public:
   _WRAP_SIGNAL(void dock_drag_end(bool cancel), "dock-drag-end")
   
   _WRAP_SIGNAL(void dock_drag_motion(int x, int y), "dock-drag-motion")
+  
+  _WRAP_SIGNAL(void selected(), "selected")
 };
 
 } // namespace Gdl
