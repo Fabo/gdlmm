@@ -15,7 +15,7 @@
 ## You should have received a copy of the GNU Lesser General Public License
 ## along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-AC_INIT([gdlmm], [2.28.0], [http://bugzilla.gnome.org/], [gdlmm], [http://www.gtkmm.org/])
+AC_INIT([gdlmm], [2.29.2], [http://bugzilla.gnome.org/], [gdlmm], [http://www.gtkmm.org/])
 AC_PREREQ([2.59])
 
 AC_CONFIG_SRCDIR([gdl/src/dock.hg])
@@ -38,7 +38,7 @@ AC_DISABLE_STATIC
 AC_LIBTOOL_WIN32_DLL
 AC_PROG_LIBTOOL
 
-AC_SUBST([GDLMM_MODULES], ['gdl-1.0 >= 2.28.0 glibmm-2.4 >= 2.16 gtkmm-2.4 >= 2.16'])
+AC_SUBST([GDLMM_MODULES], ['gdl-1.0 >= 2.29.2 glibmm-2.4 >= 2.16 gtkmm-2.4 >= 2.16'])
 PKG_CHECK_MODULES([GDLMM], [$GDLMM_MODULES])
 
 MM_PKG_CONFIG_SUBST([GTHREAD_CFLAGS], [--cflags-only-other gthread-2.0])
