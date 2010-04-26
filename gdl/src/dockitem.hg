@@ -84,6 +84,8 @@ public:
   _WRAP_PROPERTY("preferred-width", int)
   
   _WRAP_PROPERTY("resize", bool)
+
+  _WRAP_PROPERTY("long-name", Glib::ustring)
   
   
   _WRAP_SIGNAL(void dock_drag_begin(), "dock-drag-begin")

@@ -21,7 +21,7 @@
 #include <gdl/gdl.h>
 
 
-Gtk::Widget* create_text_item(void)
+static Gtk::Widget* create_text_item(void)
 {
 	Gtk::VBox* vbox = new Gtk::VBox(false);
 	Gtk::TextView* text = new Gtk::TextView();
@@ -35,17 +35,15 @@ Gtk::Widget* create_text_item(void)
 	return Gtk::manage(vbox);
 }
 
-Gtk::Widget* create_item(const Glib::ustring& button_title)
+static Gtk::Button* create_item(const Glib::ustring& button_title)
 {
-	Gtk::VBox* vbox = new Gtk::VBox(false);
 	Gtk::Button* button = new Gtk::Button(button_title);
-	vbox->pack_start(*Gtk::manage(button));
-	vbox->show_all();
+	button->show();
 	
-	return Gtk::manage(vbox);
+	return Gtk::manage(button);
 }
 
-void on_style_button_toggled(Gtk::RadioButton* button, Gdl::Dock& dock, Gdl::SwitcherStyle style)
+static void on_style_button_toggled(Gtk::RadioButton* button, Gdl::Dock& dock, Gdl::SwitcherStyle style)
 {
 	Glib::RefPtr<Gdl::DockMaster> master = dock.property_master();
 	if (button->get_active())
@@ -54,7 +52,7 @@ void on_style_button_toggled(Gtk::RadioButton* button, Gdl::Dock& dock, Gdl::Swi
 	}
 }
 
-Gtk::RadioButton* create_style_button(Gdl::Dock& dock, Gtk::VBox* box, Gtk::RadioButtonGroup* group, Gdl::SwitcherStyle style, const Glib::ustring& style_text)
+static Gtk::RadioButton* create_style_button(Gdl::Dock& dock, Gtk::VBox* box, Gtk::RadioButtonGroup* group, Gdl::SwitcherStyle style, const Glib::ustring& style_text)
 {
 	Gdl::SwitcherStyle current_style;
 	Gtk::RadioButton* button;
@@ -76,7 +74,7 @@ Gtk::RadioButton* create_style_button(Gdl::Dock& dock, Gtk::VBox* box, Gtk::Radi
 	return button;
 }
 
-Gtk::Widget* create_styles_item(Gdl::Dock& dock)
+static Gtk::Widget* create_styles_item(Gdl::Dock& dock)
 {
 	Gtk::VBox* vbox = new Gtk::VBox(false);
 	Gtk::RadioButtonGroup* group;
@@ -93,17 +91,17 @@ Gtk::Widget* create_styles_item(Gdl::Dock& dock)
 	return Gtk::manage(vbox);
 }
 
-void button_dump_cb(Glib::RefPtr<Gdl::DockLayout> layout)
+static void button_dump_cb(Glib::RefPtr<Gdl::DockLayout> layout)
 {
 	layout->save_to_file("layout.xml");
 }
 
-void run_layout_manager_cb (Glib::RefPtr<Gdl::DockLayout> layout)
+static void run_layout_manager_cb (Glib::RefPtr<Gdl::DockLayout> layout)
 {
 	layout->run_manager();
 }
 
-void save_layout_cb(Glib::RefPtr<Gdl::DockLayout> layout)
+static void save_layout_cb(Glib::RefPtr<Gdl::DockLayout> layout)
 {
 	Gtk::Dialog dialog("New Layout");
 	Gtk::HBox hbox;
@@ -123,6 +121,12 @@ void save_layout_cb(Glib::RefPtr<Gdl::DockLayout> layout)
 	{
 		layout->save_layout(entry.get_text());
 	}
+}
+
+static void on_change_name(Gdl::DockItem& item)
+{
+	static int index = 10;
+	item.property_long_name() = Glib::ustring::compose("Item %1", index++);
 }
 
 int main(int argc, char** argv)
@@ -155,8 +159,11 @@ int main(int argc, char** argv)
 	
 	item1.add(*create_text_item());
 	item2.add(*create_styles_item(dock));
-	item3.add(*create_item("Button 3"));
 	items[0]->add(*create_text_item());
+	
+	Gtk::Button& name_button = *create_item("Button 3");
+	name_button.signal_clicked().connect(sigc::bind<Gdl::DockItem&>(sigc::ptr_fun(&on_change_name), item3));
+	item3.add(name_button);
 	
 	item2.property_resize() = false;
 	
