@@ -19,4 +19,11 @@
 namespace Gdl
 {
 
+DockPlaceholder::DockPlaceholder(const Glib::ustring name, const DockObject& object, DockPlacement position, bool sticky)
+:
+  _CONSTRUCT("name", name.c_str(), "sticky", static_cast<int>(sticky), "next-placement", (GdlDockPlacement) position, "host", object.gobj())
+{
+
+}
+
 } // namespace Gdl

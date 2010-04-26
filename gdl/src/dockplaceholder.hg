@@ -32,8 +32,9 @@ class DockPlaceholder : public DockObject
   _CLASS_GTKOBJECT(DockPlaceholder, GdlDockPlaceholder, GDL_DOCK_PLACEHOLDER, DockObject, GdlDockObject)
 
 public:
-  // see https://bugzilla.gnome.org/show_bug.cgi?id=597996
-  _WRAP_CTOR(DockPlaceholder(const Glib::ustring name, const DockObject& object, DockPlacement position = static_cast<DockPlacement>(DOCK_NONE), bool sticky = true), gdl_dock_placeholder_new)
+  _IGNORE(gdl_dock_placeholder_new)
+  
+  explicit DockPlaceholder(const Glib::ustring name, const DockObject& object, DockPlacement position = static_cast<DockPlacement>(DOCK_NONE), bool sticky = true);
   
   _WRAP_METHOD(void attach(DockObject& object), gdl_dock_placeholder_attach)
   

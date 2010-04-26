@@ -192,18 +192,12 @@ int main(int argc, char** argv)
 	save_button.signal_clicked().connect(sigc::bind<Glib::RefPtr<Gdl::DockLayout> >(sigc::ptr_fun(&save_layout_cb), layout_manager));
 	layout_manager_button.signal_clicked().connect(sigc::bind<Glib::RefPtr<Gdl::DockLayout> >(sigc::ptr_fun(&run_layout_manager_cb), layout_manager));
 	dump_button.signal_clicked().connect(sigc::bind<Glib::RefPtr<Gdl::DockLayout> >(sigc::ptr_fun(&button_dump_cb), layout_manager));
-	
-	gdl_dock_placeholder_new("ph1", GDL_DOCK_OBJECT(dock.gobj()), GDL_DOCK_TOP, FALSE);
-	gdl_dock_placeholder_new("ph2", GDL_DOCK_OBJECT(dock.gobj()), GDL_DOCK_BOTTOM, FALSE);
-	gdl_dock_placeholder_new("ph3", GDL_DOCK_OBJECT(dock.gobj()), GDL_DOCK_LEFT, FALSE);
-	gdl_dock_placeholder_new("ph4", GDL_DOCK_OBJECT(dock.gobj()), GDL_DOCK_RIGHT, FALSE);
-	
-	/* see https://bugzilla.gnome.org/show_bug.cgi?id=597996
+
 	Gdl::DockPlaceholder("ph1", dock, Gdl::DOCK_TOP, false);
 	Gdl::DockPlaceholder("ph2", dock, Gdl::DOCK_BOTTOM, false);
 	Gdl::DockPlaceholder("ph3", dock, Gdl::DOCK_LEFT, false);
 	Gdl::DockPlaceholder("ph4", dock, Gdl::DOCK_RIGHT, false);
-	*/
+	
 	
 	window.show_all_children();
 	Gtk::Main::run(window);
