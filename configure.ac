@@ -15,7 +15,7 @@
 ## You should have received a copy of the GNU Lesser General Public License
 ## along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-AC_INIT([gdlmm], [2.30.0], [http://bugzilla.gnome.org/], [gdlmm], [http://www.gtkmm.org/])
+AC_INIT([gdlmm], [3.0.0], [http://bugzilla.gnome.org/], [gdlmm], [http://www.gtkmm.org/])
 AC_PREREQ([2.59])
 
 AC_CONFIG_SRCDIR([gdl/src/dock.hg])
@@ -28,7 +28,7 @@ AM_MAINTAINER_MODE
 AC_ARG_VAR([ACLOCAL_FLAGS], [aclocal flags, e.g. -I <macro dir>])
 
 MM_PREREQ([0.8])
-MM_INIT_MODULE([gdlmm-1.0])
+MM_INIT_MODULE([gdlmm-3.0])
 
 # http://www.gnu.org/software/libtool/manual/html_node/Updating-version-info.html
 AC_SUBST([GDLMM_SO_VERSION], [0:0:0])
@@ -38,18 +38,18 @@ AC_DISABLE_STATIC
 AC_LIBTOOL_WIN32_DLL
 AC_PROG_LIBTOOL
 
-AC_SUBST([GDLMM_MODULES], ['gdl-1.0 >= 2.30.0 glibmm-2.4 >= 2.16 gtkmm-2.4 >= 2.16'])
+AC_SUBST([GDLMM_MODULES], ['gdl-3.0 >= 3.0 glibmm-2.4 >= 2.16 gtkmm-3.0 >= 3.0'])
 PKG_CHECK_MODULES([GDLMM], [$GDLMM_MODULES])
 
 MM_PKG_CONFIG_SUBST([GTHREAD_CFLAGS], [--cflags-only-other gthread-2.0])
 MM_PKG_CONFIG_SUBST([GMMPROC_DIR], [--variable=gmmprocdir glibmm-2.4])
-MM_PKG_CONFIG_SUBST([GMMPROC_EXTRA_M4_DIR], [--variable=gmmprocm4dir gtkmm-2.4 atkmm-1.6 pangomm-1.4])
+MM_PKG_CONFIG_SUBST([GMMPROC_EXTRA_M4_DIR], [--variable=gmmprocm4dir gtkmm-3.0 atkmm-1.6 pangomm-1.4])
 
 MM_ARG_ENABLE_DOCUMENTATION
 MM_ARG_WITH_TAGFILE_DOC([libstdc++.tag], [mm-common-libstdc++])
 MM_ARG_WITH_TAGFILE_DOC([libsigc++-2.0.tag], [sigc++-2.0])
 MM_ARG_WITH_TAGFILE_DOC([glibmm-2.4.tag], [glibmm-2.4])
-MM_ARG_WITH_TAGFILE_DOC([gtkmm-2.4.tag], [gtkmm-2.4])
+MM_ARG_WITH_TAGFILE_DOC([gtkmm-3.0.tag], [gtkmm-3.0])
 
 AC_LANG([C++])
 MM_ARG_ENABLE_WARNINGS([GDLMM_WXXFLAGS],
