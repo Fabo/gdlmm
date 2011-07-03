@@ -37,7 +37,10 @@
   (in-module "Gdl")
   (c-name "GdlDockItemFlags")
   (values
-    '("-drag" "GDL_DOCK_IN_DRAG" "1 << 8")
+    '("in-drag" "GDL_DOCK_IN_DRAG" "1 << 8")
+    '("in-predrag" "GDL_DOCK_IN_PREDRAG" "1 << 9")
+    '("iconified" "GDL_DOCK_ICONIFIED" "1 << 10")
+    '("user-action" "GDL_DOCK_USER_ACTION" "1 << 11")
   )
 )
 
@@ -62,7 +65,8 @@
   (in-module "Gdl")
   (c-name "GdlDockParamFlags")
   (values
-    '("-drag" "GDL_DOCK_IN_DRAG" "1 << 8")
+    '("export" "GDL_DOCK_PARAM_EXPORT" "1 << G_PARAM_USER_SHIFT")
+    '("after" "GDL_DOCK_PARAM_AFTER" "1 << (G_PARAM_USER_SHIFT + 1)")
   )
 )
 
