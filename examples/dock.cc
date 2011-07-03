@@ -1,5 +1,5 @@
 /** 
- * Copyright (C) 2009  Fabien Parent <parent.f@gmail.com>
+ * Copyright (C) 2009-2011  Fabien Parent <parent.f@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,196 +18,230 @@
 
 #include <gtkmm.h>
 #include <gdlmm.h>
-#include <gdl/gdl.h>
 
-
-static Gtk::Widget* create_text_item(void)
+class GdlExampleWindow : public Gtk::Window
 {
-	Gtk::VBox* vbox = new Gtk::VBox(false);
-	Gtk::TextView* text = new Gtk::TextView();
-	Gtk::ScrolledWindow* scrolledwindow = new Gtk::ScrolledWindow();
-	scrolledwindow->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
-	scrolledwindow->set_shadow_type(Gtk::SHADOW_ETCHED_IN);
-	scrolledwindow->add(*Gtk::manage(text));
-	vbox->pack_start(*Gtk::manage(scrolledwindow));
-	vbox->show_all();
-	
-	return Gtk::manage(vbox);
-}
+public:
+    GdlExampleWindow() :
+        m_layout_manager(Gdl::DockLayout::create(m_dock)),
+        m_ph1("ph1", m_dock, Gdl::DOCK_TOP, false),
+        m_ph2("ph2", m_dock, Gdl::DOCK_BOTTOM, false),
+        m_ph3("ph3", m_dock, Gdl::DOCK_LEFT, false),
+        m_ph4("ph4", m_dock, Gdl::DOCK_RIGHT, false)
+    {
+        Gtk::Button* save_button = new Gtk::Button(Gtk::Stock::SAVE);
+        Gtk::Button* layout_manager_button = new Gtk::Button("Layout Manager");
+        Gtk::Button* dump_button = new Gtk::Button("Dump XML");
 
-static Gtk::Button* create_item(const Glib::ustring& button_title)
-{
-	Gtk::Button* button = new Gtk::Button(button_title);
-	button->show();
-	
-	return Gtk::manage(button);
-}
+        Gdl::DockBar* dockbar = new Gdl::DockBar(m_dock);
+        dockbar->set_style(Gdl::DOCK_BAR_TEXT);
 
-static void on_style_button_toggled(Gtk::RadioButton* button, Gdl::Dock& dock, Gdl::SwitcherStyle style)
-{
-	Glib::RefPtr<Gdl::DockMaster> master = dock.property_master();
-	if (button->get_active())
-	{
-		master->property_switcher_style() = style;
-	}
-}
+        Gtk::Box* box = new Gtk::HBox(false, 5);
+        Gtk::Box* button_box = new Gtk::HBox(true, 5);
 
-static Gtk::RadioButton* create_style_button(Gdl::Dock& dock, Gtk::VBox* box, Gtk::RadioButtonGroup* group, Gdl::SwitcherStyle style, const Glib::ustring& style_text)
-{
-	Gdl::SwitcherStyle current_style;
-	Gtk::RadioButton* button;
-	if (group)
-		button = new Gtk::RadioButton(*group, style_text);
-	else
-		button = new Gtk::RadioButton(style_text);
-	
-	Glib::RefPtr<Gdl::DockMaster> master = dock.property_master();
-	current_style = master->property_switcher_style();
-	
-	if (current_style == style)
-	{
-		button->set_active(true);
-	}
-	
-	button->signal_toggled().connect(sigc::bind<Gtk::RadioButton*, Gdl::Dock&, Gdl::SwitcherStyle>(sigc::ptr_fun(&on_style_button_toggled), button, dock, style));
-	box->pack_start(*Gtk::manage(button), false, false);
-	return button;
-}
+        Gtk::Box* table = new Gtk::VBox(false, 5);
+        table->set_border_width(10);
+        table->pack_start(*Gtk::manage(box));
+        table->pack_end(*Gtk::manage(button_box), false, false);
 
-static Gtk::Widget* create_styles_item(Gdl::Dock& dock)
-{
-	Gtk::VBox* vbox = new Gtk::VBox(false);
-	Gtk::RadioButtonGroup* group;
-	
-	group = &(create_style_button(dock, vbox, 0, Gdl::SWITCHER_STYLE_ICON, "Only icon")->get_group());
-	create_style_button(dock, vbox, group, Gdl::SWITCHER_STYLE_TEXT, "Only text");
-	create_style_button(dock, vbox, group, Gdl::SWITCHER_STYLE_BOTH, "Both icons and texts");
-	create_style_button(dock, vbox, group, Gdl::SWITCHER_STYLE_TOOLBAR, "Desktop toolbar style");
-	create_style_button(dock, vbox, group, Gdl::SWITCHER_STYLE_TABS, "Notebook tabs");
-	create_style_button(dock, vbox, group, Gdl::SWITCHER_STYLE_NONE, "None of the above");
-	
-	vbox->show_all();
-	
-	return Gtk::manage(vbox);
-}
+        box->pack_start(*Gtk::manage(dockbar), false, false);
+        box->pack_end(m_dock);
 
-static void button_dump_cb(Glib::RefPtr<Gdl::DockLayout> layout)
-{
-	layout->save_to_file("layout.xml");
-}
+        button_box->pack_end(*Gtk::manage(save_button), false, true);
+        button_box->pack_end(*Gtk::manage(layout_manager_button), false, true);
+        button_box->pack_end(*Gtk::manage(dump_button), false, true);
 
-static void run_layout_manager_cb (Glib::RefPtr<Gdl::DockLayout> layout)
-{
-	layout->run_manager();
-}
+        save_button->signal_clicked().connect(sigc::mem_fun
+            (*this, &GdlExampleWindow::save_layout));
+        layout_manager_button->signal_clicked().connect(sigc::mem_fun
+            (*this, &GdlExampleWindow::run_layout_manager));
+        dump_button->signal_clicked().connect(sigc::mem_fun
+            (*this, &GdlExampleWindow::dump_xml));
 
-static void save_layout_cb(Glib::RefPtr<Gdl::DockLayout> layout)
-{
-	Gtk::Dialog dialog("New Layout");
-	Gtk::HBox hbox;
-	hbox.set_border_width(8);
-	dialog.get_vbox()->pack_start(hbox, false, false);
-	dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_OK);
+        create_items();
 
-	Gtk::Label label("Name:");
-	hbox.pack_start(label, false, false);
-	
-	Gtk::Entry entry;
-	hbox.pack_start(entry);
-	
-	hbox.show_all();
+        set_title("Docking widget test");
+        set_default_size(400, 400);
+        add(*Gtk::manage(table));
+        show_all_children();
+    }
 
-	if (dialog.run() == Gtk::RESPONSE_OK)
-	{
-		layout->save_layout(entry.get_text());
-	}
-}
+    void create_items()
+    {
+        Gdl::DockItem* items[4];
+        Gdl::DockItem* item1 = new Gdl::DockItem
+                ("item1", "Item #1", Gdl::DOCK_ITEM_BEH_LOCKED);
+        Gdl::DockItem* item2 = new Gdl::DockItem(
+                "item2",
+                "Item #2: Select the switcher style for notebooks",
+                Gtk::Stock::EXECUTE);
+        Gdl::DockItem* item3 = new Gdl::DockItem(
+                "item3",
+                "Item #3 has accented characters (áéíóúñ)",
+                Gtk::Stock::CONVERT,
+                Gdl::DOCK_ITEM_BEH_NORMAL | Gdl::DOCK_ITEM_BEH_CANT_CLOSE);
+        items[0] = new Gdl::DockItem(
+                "Item #4",
+                "Item #4",
+                Gtk::Stock::JUSTIFY_FILL,
+                Gdl::DOCK_ITEM_BEH_NORMAL | Gdl::DOCK_ITEM_BEH_CANT_ICONIFY);
 
-static void on_change_name(Gdl::DockItem& item)
-{
-	static int index = 10;
-	item.property_long_name() = Glib::ustring::compose("Item %1", index++);
-}
+        m_dock.add_item(*Gtk::manage(item1), Gdl::DOCK_TOP);
+        m_dock.add_item(*Gtk::manage(item2), Gdl::DOCK_RIGHT);
+        m_dock.add_item(*Gtk::manage(item3), Gdl::DOCK_BOTTOM);
+        m_dock.add_item(*Gtk::manage(items[0]), Gdl::DOCK_BOTTOM);
+
+        for (int i = 1; i < 3; i++)
+        {
+            Glib::ustring name = Glib::ustring::compose("Item #%1", i + 4);
+            items[i] = Gtk::manage
+                (new Gdl::DockItem(name, name, Gtk::Stock::NEW));
+            items[i]->add(*create_text_item());
+            items[0]->dock(*((Gdl::DockObject*) items[i]), Gdl::DOCK_CENTER);
+        }
+
+        Gtk::Button* name_button = new Gtk::Button("Button 3");
+        name_button->signal_clicked().connect(sigc::bind<Gdl::DockItem&>
+            (sigc::mem_fun(*this, &GdlExampleWindow::on_change_name), *item3));
+
+        item2->property_resize() = false;
+
+        item1->add(*create_text_item());
+        item2->add(*create_styles_item());
+        item3->add(*Gtk::manage(name_button));
+        items[0]->add(*create_text_item());
+
+        item3->dock_to(*item1, Gdl::DOCK_TOP);
+        item2->dock_to(*item3, Gdl::DOCK_RIGHT);
+        item2->dock_to(*item3, Gdl::DOCK_LEFT);
+        item2->dock_floating();
+    }
+
+protected:
+    void on_change_name(Gdl::DockItem& item)
+    {
+        static int index = 10;
+        item.property_long_name() = Glib::ustring::compose("Item %1", index++);
+    }
+
+    void on_style_button_toggled(Gtk::RadioButton* button,
+                                 Gdl::SwitcherStyle style)
+    {
+        Glib::RefPtr<Gdl::DockMaster> master = m_dock.property_master();
+        if (button->get_active())
+            master->property_switcher_style() = style;
+    }
+
+    void dump_xml()
+    {
+        m_layout_manager->save_to_file("layout.xml");
+    }
+
+    void run_layout_manager ()
+    {
+        m_layout_manager->run_manager();
+    }
+
+    void save_layout()
+    {
+        Gtk::Dialog dialog("New Layout");
+        Gtk::HBox hbox;
+        hbox.set_border_width(8);
+        dialog.get_vbox()->pack_start(hbox, false, false);
+        dialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_OK);
+
+        Gtk::Label label("Name:");
+        hbox.pack_start(label, false, false);
+
+        Gtk::Entry entry;
+        hbox.pack_start(entry);
+
+        hbox.show_all();
+
+        if (dialog.run() == Gtk::RESPONSE_OK)
+            m_layout_manager->save_layout(entry.get_text());
+    }
+
+    /**
+     * Helpers
+     */
+    Gtk::Widget* create_text_item()
+    {
+        Gtk::Box* box = new Gtk::VBox(false);
+        Gtk::TextView* text = new Gtk::TextView();
+        Gtk::ScrolledWindow* scrolledwindow = new Gtk::ScrolledWindow();
+        scrolledwindow->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+        scrolledwindow->set_shadow_type(Gtk::SHADOW_ETCHED_IN);
+        scrolledwindow->add(*Gtk::manage(text));
+        box->pack_start(*Gtk::manage(scrolledwindow));
+        box->show_all();
+
+        return Gtk::manage(box);
+    }
+
+    Gtk::RadioButton* create_style_button(Gtk::Box* box,
+                                          Gtk::RadioButtonGroup* group,
+                                          Gdl::SwitcherStyle style,
+                                          const Glib::ustring& style_text)
+    {
+        Gdl::SwitcherStyle current_style;
+        Gtk::RadioButton* button;
+        if (group)
+            button = new Gtk::RadioButton(*group, style_text);
+        else
+            button = new Gtk::RadioButton(style_text);
+
+        Glib::RefPtr<Gdl::DockMaster> master = m_dock.property_master();
+        current_style = master->property_switcher_style();
+
+        if (current_style == style)
+            button->set_active(true);
+
+        button->signal_toggled().connect
+            (sigc::bind<Gtk::RadioButton*, Gdl::SwitcherStyle>(sigc::mem_fun
+                (*this, &GdlExampleWindow::on_style_button_toggled),
+             button, style));
+        box->pack_start(*Gtk::manage(button), false, false);
+        return Gtk::manage(button);
+    }
+
+    Gtk::Widget* create_styles_item()
+    {
+        Gtk::Box* box = new Gtk::VBox(false);
+        Gtk::RadioButtonGroup group;
+
+        group = create_style_button
+            (box,0, Gdl::SWITCHER_STYLE_ICON, "Only icon")->get_group();
+        create_style_button(box, &group, Gdl::SWITCHER_STYLE_TEXT, "Only text");
+        create_style_button
+            (box, &group, Gdl::SWITCHER_STYLE_BOTH, "Both icons and texts");
+        create_style_button
+            (box, &group, Gdl::SWITCHER_STYLE_TOOLBAR, "Desktop toolbar style");
+        create_style_button
+            (box, &group, Gdl::SWITCHER_STYLE_TABS, "Notebook tabs");
+        create_style_button
+            (box, &group, Gdl::SWITCHER_STYLE_NONE, "None of the above");
+        box->show_all();
+        return Gtk::manage(box);
+    }
+
+private:
+    Gdl::Dock m_dock;
+    Glib::RefPtr<Gdl::DockLayout> m_layout_manager;
+
+    Gdl::DockPlaceholder m_ph1;
+    Gdl::DockPlaceholder m_ph2;
+    Gdl::DockPlaceholder m_ph3;
+    Gdl::DockPlaceholder m_ph4;
+};
 
 int main(int argc, char** argv)
 {
-	Gtk::Main kit(argc, argv);
-	Gdl::init();
-	Gtk::Window window;
-	
-	window.set_title("Docking widget test");
-	window.set_default_size(400, 400);
-	
-	Gtk::VBox table;
-	table.set_border_width(10);
-	
-	Gtk::HBox box, button_box(true);
-	
-	Gtk::Button save_button(Gtk::Stock::SAVE), layout_manager_button("Layout Manager"), dump_button("Dump XML");
-	
-	Gdl::DockItem item1("item1", "Item #1", Gdl::DOCK_ITEM_BEH_LOCKED);
-	Gdl::DockItem item2("item2", "Item #2: Select the switcher style for notebooks", Gtk::Stock::EXECUTE);
-	Gdl::DockItem item3("item3", "Item #3 has accented characters (áéíóúñ)", Gtk::Stock::CONVERT, Gdl::DOCK_ITEM_BEH_NORMAL | Gdl::DOCK_ITEM_BEH_CANT_CLOSE);
-	Gdl::DockItem* items[4];
-	items[0] = new Gdl::DockItem("Item #4", "Item #4", Gtk::Stock::JUSTIFY_FILL, Gdl::DOCK_ITEM_BEH_NORMAL | Gdl::DOCK_ITEM_BEH_CANT_ICONIFY);
-	
-	Gdl::Dock dock;
-	dock.add_item(item1, Gdl::DOCK_TOP);
-	dock.add_item(item2, Gdl::DOCK_RIGHT);
-	dock.add_item(item3, Gdl::DOCK_BOTTOM);
-	dock.add_item(*(items[0]), Gdl::DOCK_BOTTOM);
-	
-	item1.add(*create_text_item());
-	item2.add(*create_styles_item(dock));
-	items[0]->add(*create_text_item());
-	
-	Gtk::Button& name_button = *create_item("Button 3");
-	name_button.signal_clicked().connect(sigc::bind<Gdl::DockItem&>(sigc::ptr_fun(&on_change_name), item3));
-	item3.add(name_button);
-	
-	item2.property_resize() = false;
-	
-	for (int i = 1; i < 3; i++)
-	{
-		Glib::ustring name = Glib::ustring::compose("Item #%1", i + 4);
-		items[i] = new Gdl::DockItem(name, name, Gtk::Stock::NEW);
-		items[i]->add(*create_text_item());
-		items[0]->dock(*((Gdl::DockObject*) items[i]), Gdl::DOCK_CENTER);
-	}
-	
-	item3.dock_to(item1, Gdl::DOCK_TOP);
-	item2.dock_to(item3, Gdl::DOCK_RIGHT);
-	item2.dock_to(item3, Gdl::DOCK_LEFT);
-	item2.dock_floating();
-	
-	Gdl::DockBar dock_bar(dock);
-	dock_bar.set_style(Gdl::DOCK_BAR_TEXT);
-	
-	table.pack_start(box);
-	box.pack_start(dock_bar, false, false);
-	box.pack_end(dock);
-	
-	window.add(table);
-	table.pack_end(button_box, false, false);
-	
-	Glib::RefPtr<Gdl::DockLayout> layout_manager = Gdl::DockLayout::create(dock);
-	
-	button_box.pack_end(save_button, false, true);
-	button_box.pack_end(layout_manager_button, false, true);
-	button_box.pack_end(dump_button, false, true);
-	
-	save_button.signal_clicked().connect(sigc::bind<Glib::RefPtr<Gdl::DockLayout> >(sigc::ptr_fun(&save_layout_cb), layout_manager));
-	layout_manager_button.signal_clicked().connect(sigc::bind<Glib::RefPtr<Gdl::DockLayout> >(sigc::ptr_fun(&run_layout_manager_cb), layout_manager));
-	dump_button.signal_clicked().connect(sigc::bind<Glib::RefPtr<Gdl::DockLayout> >(sigc::ptr_fun(&button_dump_cb), layout_manager));
+    Gtk::Main kit(argc, argv);
+    Gdl::init();
 
-	Gdl::DockPlaceholder("ph1", dock, Gdl::DOCK_TOP, false);
-	Gdl::DockPlaceholder("ph2", dock, Gdl::DOCK_BOTTOM, false);
-	Gdl::DockPlaceholder("ph3", dock, Gdl::DOCK_LEFT, false);
-	Gdl::DockPlaceholder("ph4", dock, Gdl::DOCK_RIGHT, false);
-	
-	
-	window.show_all_children();
-	Gtk::Main::run(window);
-	
-	return 0;
+    GdlExampleWindow window;
+    Gtk::Main::run(window);
+
+    return 0;
 }
