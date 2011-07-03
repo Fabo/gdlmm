@@ -37,6 +37,7 @@
   (in-module "Gdl")
   (c-name "GdlDockItemFlags")
   (values
+    '("-drag" "GDL_DOCK_IN_DRAG" "1 << 8")
   )
 )
 
@@ -61,6 +62,7 @@
   (in-module "Gdl")
   (c-name "GdlDockParamFlags")
   (values
+    '("-drag" "GDL_DOCK_IN_DRAG" "1 << 8")
   )
 )
 
