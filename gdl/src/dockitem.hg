@@ -49,6 +49,8 @@ public:
   _WRAP_METHOD(Gtk::Widget* get_tablabel() const, gdl_dock_item_get_tablabel)
   
   _WRAP_METHOD(void set_tablabel(Gtk::Widget& tablabel), gdl_dock_item_set_tablabel)
+
+  _WRAP_METHOD(GtkWidget* get_grip() const, gdl_dock_item_get_grip)
   
   _WRAP_METHOD(void hide_grip(), gdl_dock_item_hide_grip)
   
