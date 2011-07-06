@@ -53,6 +53,7 @@ public:
   
   _WRAP_METHOD(void xor_rect(GdkRectangle *rect), gdl_dock_xor_rect)
   
+  _WRAP_METHOD(void xor_rect_hide(), gdl_dock_xor_rect_hide)
   
   _WRAP_PROPERTY("default-title", Glib::ustring)
   
