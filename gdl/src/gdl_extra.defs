@@ -6,280 +6,10 @@
   (when "last")
 )
 
-(define-property user-data
-  (of-object "GdlDock")
-  (prop-type "GParamPointer")
-  (docs "Pointeur anonyme sur les données de l'utilisateur")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property parent
-  (of-object "GdlDock")
-  (prop-type "GParamObject")
-  (docs "Le composant graphique parent de ce composant graphique. Cela doit être un conteneur")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property width-request
-  (of-object "GdlDock")
-  (prop-type "GParamInt")
-  (docs "Force la requête de largeur du composant graphique, ou -1 si la requête naturel doit être utilisé")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property height-request
-  (of-object "GdlDock")
-  (prop-type "GParamInt")
-  (docs "Force la requête de hauteur du composant graphique, ou -1 si la requête naturel doit être utilisé")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property visible
-  (of-object "GdlDock")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique est visible")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property sensitive
-  (of-object "GdlDock")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique répond aux entrées de l'utilisateur")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property app-paintable
-  (of-object "GdlDock")
-  (prop-type "GParamBoolean")
-  (docs "Indique si l'application peindra directement sur le composant graphique")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property can-focus
-  (of-object "GdlDock")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique peut obtenir le focus")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property has-focus
-  (of-object "GdlDock")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique a le focus")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property is-focus
-  (of-object "GdlDock")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique est celui qui a le focus au plus haut niveau")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property can-default
-  (of-object "GdlDock")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique peut être le composant graphique par défaut")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property has-default
-  (of-object "GdlDock")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique est le composant graphique par défaut")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property receives-default
-  (of-object "GdlDock")
-  (prop-type "GParamBoolean")
-  (docs "Si VRAI, le composant graphique recevra l'action par défaut quand il a le focus")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property composite-child
-  (of-object "GdlDock")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique fait partie d'un composant graphique composite")
-  (readable #t)
-  (writable #f)
-  (construct-only #f)
-)
-
-(define-property style
-  (of-object "GdlDock")
-  (prop-type "GParamObject")
-  (docs "Le style du composant graphique, qui contient des informations au sujet de son aspect (couleurs, ...)")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property events
-  (of-object "GdlDock")
-  (prop-type "GParamFlags")
-  (docs "Le masque d'événements qui indique les différents GdkEvents que ce composant graphique reçoit")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property extension-events
-  (of-object "GdlDock")
-  (prop-type "GParamEnum")
-  (docs "Le masque d'événements qui indique les différents événements d'extension que ce composant graphique reçoit")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property no-show-all
-  (of-object "GdlDock")
-  (prop-type "GParamBoolean")
-  (docs "Indique si gtk_widget_show_all() ne doit pas affecter ce composant graphique")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property has-tooltip
-  (of-object "GdlDock")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique a une infobulle")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property tooltip-markup
-  (of-object "GdlDock")
-  (prop-type "GParamString")
-  (docs "Le contenu de l'infobulle pour ce composant")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property tooltip-text
-  (of-object "GdlDock")
-  (prop-type "GParamString")
-  (docs "Le contenu de l'infobulle pour ce composant")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property window
-  (of-object "GdlDock")
-  (prop-type "GParamObject")
-  (docs "La fenêtre du composant graphique, s'il est créé.")
-  (readable #t)
-  (writable #f)
-  (construct-only #f)
-)
-
-(define-property double-buffered
-  (of-object "GdlDock")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique est doublement mis en tampon")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property border-width
-  (of-object "GdlDock")
-  (prop-type "GParamUInt")
-  (docs "La largeur de la bordure vide à l'extérieur des conteneurs fils")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property resize-mode
-  (of-object "GdlDock")
-  (prop-type "GParamEnum")
-  (docs "Indique la façon dont sont gérés les évènements de redimensionnement")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property child
-  (of-object "GdlDock")
-  (prop-type "GParamObject")
-  (docs "Peut être utilisé pour ajouter un nouveau fils au conteneur")
-  (readable #f)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property name
-  (of-object "GdlDock")
-  (prop-type "GParamString")
-  (docs "Nom unique pour identifier l'objet détachable")
-  (readable #t)
-  (writable #t)
-  (construct-only #t)
-)
-
-(define-property long-name
-  (of-object "GdlDock")
-  (prop-type "GParamString")
-  (docs "Nom facile à lire pour un humain pour l'objet détachable")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property stock-id
-  (of-object "GdlDock")
-  (prop-type "GParamString")
-  (docs "Icône prédéfinie pour l'objet détachable")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property master
-  (of-object "GdlDock")
-  (prop-type "GParamObject")
-  (docs "Dock maître auquel l'objet détachable est connecté")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
 (define-property floating
   (of-object "GdlDock")
   (prop-type "GParamBoolean")
-  (docs "Indique si l'objet détachable flotte dans sa propre fenêtre")
+  (docs "Whether the dock is floating in its own window")
   (readable #t)
   (writable #t)
   (construct-only #t)
@@ -288,7 +18,7 @@
 (define-property default-title
   (of-object "GdlDock")
   (prop-type "GParamString")
-  (docs "Titre par défaut pour les objets détachables flottants nouvellement créés")
+  (docs "Default title for the newly created floating docks")
   (readable #t)
   (writable #t)
   (construct-only #f)
@@ -297,7 +27,7 @@
 (define-property width
   (of-object "GdlDock")
   (prop-type "GParamInt")
-  (docs "Largeur de l'objet détachable quand il est de type flottant")
+  (docs "Width for the dock when it's of floating type")
   (readable #t)
   (writable #t)
   (construct-only #f)
@@ -306,7 +36,7 @@
 (define-property height
   (of-object "GdlDock")
   (prop-type "GParamInt")
-  (docs "Hauteur de l'objet détachable quand il est de type flottant")
+  (docs "Height for the dock when it's of floating type")
   (readable #t)
   (writable #t)
   (construct-only #f)
@@ -315,7 +45,7 @@
 (define-property floatx
   (of-object "GdlDock")
   (prop-type "GParamInt")
-  (docs "Coordonnée X pour les objets détachables flottants")
+  (docs "X coordinate for a floating dock")
   (readable #t)
   (writable #t)
   (construct-only #f)
@@ -324,7 +54,7 @@
 (define-property floaty
   (of-object "GdlDock")
   (prop-type "GParamInt")
-  (docs "Coordonnée Y pour les objets détachables flottants")
+  (docs "Y coordinate for a floating dock")
   (readable #t)
   (writable #t)
   (construct-only #f)
@@ -332,280 +62,10 @@
 
 ;; From GdlDockBar
 
-(define-property orientation
-  (of-object "GdlDockBar")
-  (prop-type "GParamEnum")
-  (docs "L'orientation de l'orientable")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property user-data
-  (of-object "GdlDockBar")
-  (prop-type "GParamPointer")
-  (docs "Pointeur anonyme sur les données de l'utilisateur")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property name
-  (of-object "GdlDockBar")
-  (prop-type "GParamString")
-  (docs "Le nom du composant graphique")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property parent
-  (of-object "GdlDockBar")
-  (prop-type "GParamObject")
-  (docs "Le composant graphique parent de ce composant graphique. Cela doit être un conteneur")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property width-request
-  (of-object "GdlDockBar")
-  (prop-type "GParamInt")
-  (docs "Force la requête de largeur du composant graphique, ou -1 si la requête naturel doit être utilisé")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property height-request
-  (of-object "GdlDockBar")
-  (prop-type "GParamInt")
-  (docs "Force la requête de hauteur du composant graphique, ou -1 si la requête naturel doit être utilisé")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property visible
-  (of-object "GdlDockBar")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique est visible")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property sensitive
-  (of-object "GdlDockBar")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique répond aux entrées de l'utilisateur")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property app-paintable
-  (of-object "GdlDockBar")
-  (prop-type "GParamBoolean")
-  (docs "Indique si l'application peindra directement sur le composant graphique")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property can-focus
-  (of-object "GdlDockBar")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique peut obtenir le focus")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property has-focus
-  (of-object "GdlDockBar")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique a le focus")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property is-focus
-  (of-object "GdlDockBar")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique est celui qui a le focus au plus haut niveau")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property can-default
-  (of-object "GdlDockBar")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique peut être le composant graphique par défaut")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property has-default
-  (of-object "GdlDockBar")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique est le composant graphique par défaut")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property receives-default
-  (of-object "GdlDockBar")
-  (prop-type "GParamBoolean")
-  (docs "Si VRAI, le composant graphique recevra l'action par défaut quand il a le focus")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property composite-child
-  (of-object "GdlDockBar")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique fait partie d'un composant graphique composite")
-  (readable #t)
-  (writable #f)
-  (construct-only #f)
-)
-
-(define-property style
-  (of-object "GdlDockBar")
-  (prop-type "GParamObject")
-  (docs "Le style du composant graphique, qui contient des informations au sujet de son aspect (couleurs, ...)")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property events
-  (of-object "GdlDockBar")
-  (prop-type "GParamFlags")
-  (docs "Le masque d'événements qui indique les différents GdkEvents que ce composant graphique reçoit")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property extension-events
-  (of-object "GdlDockBar")
-  (prop-type "GParamEnum")
-  (docs "Le masque d'événements qui indique les différents événements d'extension que ce composant graphique reçoit")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property no-show-all
-  (of-object "GdlDockBar")
-  (prop-type "GParamBoolean")
-  (docs "Indique si gtk_widget_show_all() ne doit pas affecter ce composant graphique")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property has-tooltip
-  (of-object "GdlDockBar")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique a une infobulle")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property tooltip-markup
-  (of-object "GdlDockBar")
-  (prop-type "GParamString")
-  (docs "Le contenu de l'infobulle pour ce composant")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property tooltip-text
-  (of-object "GdlDockBar")
-  (prop-type "GParamString")
-  (docs "Le contenu de l'infobulle pour ce composant")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property window
-  (of-object "GdlDockBar")
-  (prop-type "GParamObject")
-  (docs "La fenêtre du composant graphique, s'il est créé.")
-  (readable #t)
-  (writable #f)
-  (construct-only #f)
-)
-
-(define-property double-buffered
-  (of-object "GdlDockBar")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique est doublement mis en tampon")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property border-width
-  (of-object "GdlDockBar")
-  (prop-type "GParamUInt")
-  (docs "La largeur de la bordure vide à l'extérieur des conteneurs fils")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property resize-mode
-  (of-object "GdlDockBar")
-  (prop-type "GParamEnum")
-  (docs "Indique la façon dont sont gérés les évènements de redimensionnement")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property child
-  (of-object "GdlDockBar")
-  (prop-type "GParamObject")
-  (docs "Peut être utilisé pour ajouter un nouveau fils au conteneur")
-  (readable #f)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property spacing
-  (of-object "GdlDockBar")
-  (prop-type "GParamInt")
-  (docs "La quantité d'espace entre les fils")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property homogeneous
-  (of-object "GdlDockBar")
-  (prop-type "GParamBoolean")
-  (docs "Indique si les fils doivent tous avoir la même taille")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
 (define-property master
   (of-object "GdlDockBar")
   (prop-type "GParamObject")
-  (docs "Objet GdlDockMaster auquel le composant graphique de barre détachable  est lié")
+  (docs "GdlDockMaster object which the dockbar widget is attached to")
   (readable #t)
   (writable #t)
   (construct-only #f)
@@ -614,7 +74,7 @@
 (define-property dockbar-style
   (of-object "GdlDockBar")
   (prop-type "GParamEnum")
-  (docs "Style de barre d'objet détachable sur laquelle afficher les éléments")
+  (docs "Dockbar style to show items on it")
   (readable #t)
   (writable #t)
   (construct-only #f)
@@ -653,280 +113,10 @@
   (when "first")
 )
 
-(define-property user-data
-  (of-object "GdlDockItem")
-  (prop-type "GParamPointer")
-  (docs "Pointeur anonyme sur les données de l'utilisateur")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property parent
-  (of-object "GdlDockItem")
-  (prop-type "GParamObject")
-  (docs "Le composant graphique parent de ce composant graphique. Cela doit être un conteneur")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property width-request
-  (of-object "GdlDockItem")
-  (prop-type "GParamInt")
-  (docs "Force la requête de largeur du composant graphique, ou -1 si la requête naturel doit être utilisé")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property height-request
-  (of-object "GdlDockItem")
-  (prop-type "GParamInt")
-  (docs "Force la requête de hauteur du composant graphique, ou -1 si la requête naturel doit être utilisé")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property visible
-  (of-object "GdlDockItem")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique est visible")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property sensitive
-  (of-object "GdlDockItem")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique répond aux entrées de l'utilisateur")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property app-paintable
-  (of-object "GdlDockItem")
-  (prop-type "GParamBoolean")
-  (docs "Indique si l'application peindra directement sur le composant graphique")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property can-focus
-  (of-object "GdlDockItem")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique peut obtenir le focus")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property has-focus
-  (of-object "GdlDockItem")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique a le focus")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property is-focus
-  (of-object "GdlDockItem")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique est celui qui a le focus au plus haut niveau")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property can-default
-  (of-object "GdlDockItem")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique peut être le composant graphique par défaut")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property has-default
-  (of-object "GdlDockItem")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique est le composant graphique par défaut")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property receives-default
-  (of-object "GdlDockItem")
-  (prop-type "GParamBoolean")
-  (docs "Si VRAI, le composant graphique recevra l'action par défaut quand il a le focus")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property composite-child
-  (of-object "GdlDockItem")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique fait partie d'un composant graphique composite")
-  (readable #t)
-  (writable #f)
-  (construct-only #f)
-)
-
-(define-property style
-  (of-object "GdlDockItem")
-  (prop-type "GParamObject")
-  (docs "Le style du composant graphique, qui contient des informations au sujet de son aspect (couleurs, ...)")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property events
-  (of-object "GdlDockItem")
-  (prop-type "GParamFlags")
-  (docs "Le masque d'événements qui indique les différents GdkEvents que ce composant graphique reçoit")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property extension-events
-  (of-object "GdlDockItem")
-  (prop-type "GParamEnum")
-  (docs "Le masque d'événements qui indique les différents événements d'extension que ce composant graphique reçoit")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property no-show-all
-  (of-object "GdlDockItem")
-  (prop-type "GParamBoolean")
-  (docs "Indique si gtk_widget_show_all() ne doit pas affecter ce composant graphique")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property has-tooltip
-  (of-object "GdlDockItem")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique a une infobulle")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property tooltip-markup
-  (of-object "GdlDockItem")
-  (prop-type "GParamString")
-  (docs "Le contenu de l'infobulle pour ce composant")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property tooltip-text
-  (of-object "GdlDockItem")
-  (prop-type "GParamString")
-  (docs "Le contenu de l'infobulle pour ce composant")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property window
-  (of-object "GdlDockItem")
-  (prop-type "GParamObject")
-  (docs "La fenêtre du composant graphique, s'il est créé.")
-  (readable #t)
-  (writable #f)
-  (construct-only #f)
-)
-
-(define-property double-buffered
-  (of-object "GdlDockItem")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique est doublement mis en tampon")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property border-width
-  (of-object "GdlDockItem")
-  (prop-type "GParamUInt")
-  (docs "La largeur de la bordure vide à l'extérieur des conteneurs fils")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property resize-mode
-  (of-object "GdlDockItem")
-  (prop-type "GParamEnum")
-  (docs "Indique la façon dont sont gérés les évènements de redimensionnement")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property child
-  (of-object "GdlDockItem")
-  (prop-type "GParamObject")
-  (docs "Peut être utilisé pour ajouter un nouveau fils au conteneur")
-  (readable #f)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property name
-  (of-object "GdlDockItem")
-  (prop-type "GParamString")
-  (docs "Nom unique pour identifier l'objet détachable")
-  (readable #t)
-  (writable #t)
-  (construct-only #t)
-)
-
-(define-property long-name
-  (of-object "GdlDockItem")
-  (prop-type "GParamString")
-  (docs "Nom facile à lire pour un humain pour l'objet détachable")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property stock-id
-  (of-object "GdlDockItem")
-  (prop-type "GParamString")
-  (docs "Icône prédéfinie pour l'objet détachable")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property master
-  (of-object "GdlDockItem")
-  (prop-type "GParamObject")
-  (docs "Dock maître auquel l'objet détachable est connecté")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
 (define-property orientation
   (of-object "GdlDockItem")
   (prop-type "GParamEnum")
-  (docs "Orientation de l'élément détachable")
+  (docs "Orientation of the docking item")
   (readable #t)
   (writable #t)
   (construct-only #f)
@@ -935,7 +125,7 @@
 (define-property resize
   (of-object "GdlDockItem")
   (prop-type "GParamBoolean")
-  (docs "Si défini, l'élément détachable peut être redimensionné lorsqu'il est ancré à un composant GtkPanel")
+  (docs "If set, the dock item can be resized when docked in a GtkPanel widget")
   (readable #t)
   (writable #t)
   (construct-only #f)
@@ -944,7 +134,7 @@
 (define-property behavior
   (of-object "GdlDockItem")
   (prop-type "GParamFlags")
-  (docs "Comportement général pour l'élément détachable (ex. s'il peut flotter, s'il est verrouillé, etc.)")
+  (docs "General behavior for the dock item (i.e. whether it can float, if it's locked, etc.)")
   (readable #t)
   (writable #t)
   (construct-only #f)
@@ -953,7 +143,7 @@
 (define-property locked
   (of-object "GdlDockItem")
   (prop-type "GParamBoolean")
-  (docs "Si défini, on ne peut pas faire glisser l'élément détachable et la poignée n'est pas affichée")
+  (docs "If set, the dock item cannot be dragged around and it doesn't show a grip")
   (readable #t)
   (writable #t)
   (construct-only #f)
@@ -962,7 +152,7 @@
 (define-property preferred-width
   (of-object "GdlDockItem")
   (prop-type "GParamInt")
-  (docs "Largeur préférée pour l'élément détachable")
+  (docs "Preferred width for the dock item")
   (readable #t)
   (writable #t)
   (construct-only #f)
@@ -971,7 +161,7 @@
 (define-property preferred-height
   (of-object "GdlDockItem")
   (prop-type "GParamInt")
-  (docs "Hauteur préférée pour l'élément détachable")
+  (docs "Preferred height for the dock item")
   (readable #t)
   (writable #t)
   (construct-only #f)
@@ -982,7 +172,7 @@
 (define-property master
   (of-object "GdlDockLayout")
   (prop-type "GParamObject")
-  (docs "Objet GdlDockMaster auquel l'objet de disposition est attaché")
+  (docs "GdlDockMaster object which the layout object is attached to")
   (readable #t)
   (writable #t)
   (construct-only #f)
@@ -991,7 +181,7 @@
 (define-property dirty
   (of-object "GdlDockLayout")
   (prop-type "GParamBoolean")
-  (docs "Vrai si les dispositions ont changé et ont besoin d'être enregistrés dans un fichier")
+  (docs "True if the layouts have changed and need to be saved to a file")
   (readable #t)
   (writable #f)
   (construct-only #f)
@@ -1008,7 +198,7 @@
 (define-property default-title
   (of-object "GdlDockMaster")
   (prop-type "GParamString")
-  (docs "Titre par défaut pour les objets détachables flottants nouvellement créés")
+  (docs "Default title for newly created floating docks")
   (readable #t)
   (writable #t)
   (construct-only #f)
@@ -1017,7 +207,7 @@
 (define-property locked
   (of-object "GdlDockMaster")
   (prop-type "GParamInt")
-  (docs "Si défini à 1, tous les éléments détachables connectés au maître seront verrouillés ; si défini à 0, tout sera déverrouillé ; -1 indique une incohérence parmi les éléments")
+  (docs "If is set to 1, all the dock items bound to the master are locked; if it's 0, all are unlocked; -1 indicates inconsistency among the items")
   (readable #t)
   (writable #t)
   (construct-only #f)
@@ -1026,7 +216,7 @@
 (define-property switcher-style
   (of-object "GdlDockMaster")
   (prop-type "GParamEnum")
-  (docs "Style des boutons de basculement")
+  (docs "Switcher buttons style")
   (readable #t)
   (writable #t)
   (construct-only #f)
@@ -1054,244 +244,10 @@
   )
 )
 
-(define-property user-data
-  (of-object "GdlDockObject")
-  (prop-type "GParamPointer")
-  (docs "Pointeur anonyme sur les données de l'utilisateur")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property parent
-  (of-object "GdlDockObject")
-  (prop-type "GParamObject")
-  (docs "Le composant graphique parent de ce composant graphique. Cela doit être un conteneur")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property width-request
-  (of-object "GdlDockObject")
-  (prop-type "GParamInt")
-  (docs "Force la requête de largeur du composant graphique, ou -1 si la requête naturel doit être utilisé")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property height-request
-  (of-object "GdlDockObject")
-  (prop-type "GParamInt")
-  (docs "Force la requête de hauteur du composant graphique, ou -1 si la requête naturel doit être utilisé")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property visible
-  (of-object "GdlDockObject")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique est visible")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property sensitive
-  (of-object "GdlDockObject")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique répond aux entrées de l'utilisateur")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property app-paintable
-  (of-object "GdlDockObject")
-  (prop-type "GParamBoolean")
-  (docs "Indique si l'application peindra directement sur le composant graphique")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property can-focus
-  (of-object "GdlDockObject")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique peut obtenir le focus")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property has-focus
-  (of-object "GdlDockObject")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique a le focus")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property is-focus
-  (of-object "GdlDockObject")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique est celui qui a le focus au plus haut niveau")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property can-default
-  (of-object "GdlDockObject")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique peut être le composant graphique par défaut")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property has-default
-  (of-object "GdlDockObject")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique est le composant graphique par défaut")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property receives-default
-  (of-object "GdlDockObject")
-  (prop-type "GParamBoolean")
-  (docs "Si VRAI, le composant graphique recevra l'action par défaut quand il a le focus")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property composite-child
-  (of-object "GdlDockObject")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique fait partie d'un composant graphique composite")
-  (readable #t)
-  (writable #f)
-  (construct-only #f)
-)
-
-(define-property style
-  (of-object "GdlDockObject")
-  (prop-type "GParamObject")
-  (docs "Le style du composant graphique, qui contient des informations au sujet de son aspect (couleurs, ...)")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property events
-  (of-object "GdlDockObject")
-  (prop-type "GParamFlags")
-  (docs "Le masque d'événements qui indique les différents GdkEvents que ce composant graphique reçoit")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property extension-events
-  (of-object "GdlDockObject")
-  (prop-type "GParamEnum")
-  (docs "Le masque d'événements qui indique les différents événements d'extension que ce composant graphique reçoit")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property no-show-all
-  (of-object "GdlDockObject")
-  (prop-type "GParamBoolean")
-  (docs "Indique si gtk_widget_show_all() ne doit pas affecter ce composant graphique")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property has-tooltip
-  (of-object "GdlDockObject")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique a une infobulle")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property tooltip-markup
-  (of-object "GdlDockObject")
-  (prop-type "GParamString")
-  (docs "Le contenu de l'infobulle pour ce composant")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property tooltip-text
-  (of-object "GdlDockObject")
-  (prop-type "GParamString")
-  (docs "Le contenu de l'infobulle pour ce composant")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property window
-  (of-object "GdlDockObject")
-  (prop-type "GParamObject")
-  (docs "La fenêtre du composant graphique, s'il est créé.")
-  (readable #t)
-  (writable #f)
-  (construct-only #f)
-)
-
-(define-property double-buffered
-  (of-object "GdlDockObject")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique est doublement mis en tampon")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property border-width
-  (of-object "GdlDockObject")
-  (prop-type "GParamUInt")
-  (docs "La largeur de la bordure vide à l'extérieur des conteneurs fils")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property resize-mode
-  (of-object "GdlDockObject")
-  (prop-type "GParamEnum")
-  (docs "Indique la façon dont sont gérés les évènements de redimensionnement")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property child
-  (of-object "GdlDockObject")
-  (prop-type "GParamObject")
-  (docs "Peut être utilisé pour ajouter un nouveau fils au conteneur")
-  (readable #f)
-  (writable #t)
-  (construct-only #f)
-)
-
 (define-property name
   (of-object "GdlDockObject")
   (prop-type "GParamString")
-  (docs "Nom unique pour identifier l'objet détachable")
+  (docs "Unique name for identifying the dock object")
   (readable #t)
   (writable #t)
   (construct-only #t)
@@ -1300,7 +256,7 @@
 (define-property long-name
   (of-object "GdlDockObject")
   (prop-type "GParamString")
-  (docs "Nom facile à lire pour un humain pour l'objet détachable")
+  (docs "Human readable name for the dock object")
   (readable #t)
   (writable #t)
   (construct-only #f)
@@ -1309,7 +265,7 @@
 (define-property stock-id
   (of-object "GdlDockObject")
   (prop-type "GParamString")
-  (docs "Icône prédéfinie pour l'objet détachable")
+  (docs "Stock icon for the dock object")
   (readable #t)
   (writable #t)
   (construct-only #f)
@@ -1318,7 +274,7 @@
 (define-property master
   (of-object "GdlDockObject")
   (prop-type "GParamObject")
-  (docs "Dock maître auquel l'objet détachable est connecté")
+  (docs "Dock master this dock object is bound to")
   (readable #t)
   (writable #t)
   (construct-only #f)
@@ -1326,280 +282,10 @@
 
 ;; From GdlDockPlaceholder
 
-(define-property user-data
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamPointer")
-  (docs "Pointeur anonyme sur les données de l'utilisateur")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property parent
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamObject")
-  (docs "Le composant graphique parent de ce composant graphique. Cela doit être un conteneur")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property width-request
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamInt")
-  (docs "Force la requête de largeur du composant graphique, ou -1 si la requête naturel doit être utilisé")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property height-request
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamInt")
-  (docs "Force la requête de hauteur du composant graphique, ou -1 si la requête naturel doit être utilisé")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property visible
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique est visible")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property sensitive
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique répond aux entrées de l'utilisateur")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property app-paintable
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamBoolean")
-  (docs "Indique si l'application peindra directement sur le composant graphique")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property can-focus
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique peut obtenir le focus")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property has-focus
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique a le focus")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property is-focus
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique est celui qui a le focus au plus haut niveau")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property can-default
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique peut être le composant graphique par défaut")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property has-default
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique est le composant graphique par défaut")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property receives-default
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamBoolean")
-  (docs "Si VRAI, le composant graphique recevra l'action par défaut quand il a le focus")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property composite-child
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique fait partie d'un composant graphique composite")
-  (readable #t)
-  (writable #f)
-  (construct-only #f)
-)
-
-(define-property style
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamObject")
-  (docs "Le style du composant graphique, qui contient des informations au sujet de son aspect (couleurs, ...)")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property events
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamFlags")
-  (docs "Le masque d'événements qui indique les différents GdkEvents que ce composant graphique reçoit")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property extension-events
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamEnum")
-  (docs "Le masque d'événements qui indique les différents événements d'extension que ce composant graphique reçoit")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property no-show-all
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamBoolean")
-  (docs "Indique si gtk_widget_show_all() ne doit pas affecter ce composant graphique")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property has-tooltip
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique a une infobulle")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property tooltip-markup
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamString")
-  (docs "Le contenu de l'infobulle pour ce composant")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property tooltip-text
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamString")
-  (docs "Le contenu de l'infobulle pour ce composant")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property window
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamObject")
-  (docs "La fenêtre du composant graphique, s'il est créé.")
-  (readable #t)
-  (writable #f)
-  (construct-only #f)
-)
-
-(define-property double-buffered
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamBoolean")
-  (docs "Indique si le composant graphique est doublement mis en tampon")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property border-width
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamUInt")
-  (docs "La largeur de la bordure vide à l'extérieur des conteneurs fils")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property resize-mode
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamEnum")
-  (docs "Indique la façon dont sont gérés les évènements de redimensionnement")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property child
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamObject")
-  (docs "Peut être utilisé pour ajouter un nouveau fils au conteneur")
-  (readable #f)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property name
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamString")
-  (docs "Nom unique pour identifier l'objet détachable")
-  (readable #t)
-  (writable #t)
-  (construct-only #t)
-)
-
-(define-property long-name
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamString")
-  (docs "Nom facile à lire pour un humain pour l'objet détachable")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property stock-id
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamString")
-  (docs "Icône prédéfinie pour l'objet détachable")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
-(define-property master
-  (of-object "GdlDockPlaceholder")
-  (prop-type "GParamObject")
-  (docs "Dock maître auquel l'objet détachable est connecté")
-  (readable #t)
-  (writable #t)
-  (construct-only #f)
-)
-
 (define-property sticky
   (of-object "GdlDockPlaceholder")
   (prop-type "GParamBoolean")
-  (docs "Indique si la variable garde la dépendance vers son hôte ou se déplace dans la hiérarchie quand l'hôte est ré-attaché")
+  (docs "Whether the placeholder will stick to its host or move up the hierarchy when the host is redocked")
   (readable #t)
   (writable #t)
   (construct-only #t)
@@ -1608,7 +294,7 @@
 (define-property host
   (of-object "GdlDockPlaceholder")
   (prop-type "GParamObject")
-  (docs "L'objet détachable auquel la variable est attachée")
+  (docs "The dock object this placeholder is attached to")
   (readable #t)
   (writable #t)
   (construct-only #f)
@@ -1617,7 +303,7 @@
 (define-property next-placement
   (of-object "GdlDockPlaceholder")
   (prop-type "GParamEnum")
-  (docs "La position où un élément sera attaché à notre hôte si une requête est faite pour s'attacher à nous")
+  (docs "The position an item will be docked to our host if a request is made to dock to us")
   (readable #t)
   (writable #t)
   (construct-only #f)
@@ -1626,7 +312,7 @@
 (define-property width
   (of-object "GdlDockPlaceholder")
   (prop-type "GParamInt")
-  (docs "Largeur du composant graphique quand il est attaché au substituant")
+  (docs "Width for the widget when it's attached to the placeholder")
   (readable #t)
   (writable #t)
   (construct-only #f)
@@ -1635,7 +321,7 @@
 (define-property height
   (of-object "GdlDockPlaceholder")
   (prop-type "GParamInt")
-  (docs "Hauteur du composant graphique quand il est attaché au substituant")
+  (docs "Height for the widget when it's attached to the placeholder")
   (readable #t)
   (writable #t)
   (construct-only #f)
@@ -1644,7 +330,7 @@
 (define-property floating
   (of-object "GdlDockPlaceholder")
   (prop-type "GParamBoolean")
-  (docs "Indique si le substituant est destiné à un objet détachable flottant de premier niveau")
+  (docs "Whether the placeholder is standing in for a floating toplevel dock")
   (readable #t)
   (writable #t)
   (construct-only #t)
@@ -1653,7 +339,7 @@
 (define-property floatx
   (of-object "GdlDockPlaceholder")
   (prop-type "GParamInt")
-  (docs "Coordonnée X pour l'objet détachable lorsqu'il est flottant")
+  (docs "X coordinate for dock when floating")
   (readable #t)
   (writable #t)
   (construct-only #t)
@@ -1662,7 +348,7 @@
 (define-property floaty
   (of-object "GdlDockPlaceholder")
   (prop-type "GParamInt")
-  (docs "Coordonnée Y pour l'objet détachable lorsqu'il est flottant")
+  (docs "Y coordinate for dock when floating")
   (readable #t)
   (writable #t)
   (construct-only #t)

@@ -277,6 +277,12 @@
   )
 )
 
+(define-method xor_rect_hide
+  (of-object "GdlDock")
+  (c-name "gdl_dock_xor_rect_hide")
+  (return-type "none")
+)
+
 
 
 ;; From gdl-dock-item-grip.h
@@ -394,6 +400,12 @@
 (define-method show_grip
   (of-object "GdlDockItem")
   (c-name "gdl_dock_item_show_grip")
+  (return-type "none")
+)
+
+(define-method notify_selected
+  (of-object "GdlDockItem")
+  (c-name "gdl_dock_item_notify_selected")
   (return-type "none")
 )
 
@@ -548,18 +560,6 @@
   (of-object "GdlDockLayout")
   (c-name "gdl_dock_layout_is_dirty")
   (return-type "gboolean")
-)
-
-(define-method get_ui
-  (of-object "GdlDockLayout")
-  (c-name "gdl_dock_layout_get_ui")
-  (return-type "GtkWidget*")
-)
-
-(define-method get_items_ui
-  (of-object "GdlDockLayout")
-  (c-name "gdl_dock_layout_get_items_ui")
-  (return-type "GtkWidget*")
 )
 
 (define-method get_layouts_ui
@@ -824,10 +824,6 @@
 
 
 ;; From gdl.h
-
-
-
-;; From gdl-tools.h
 
 
 
