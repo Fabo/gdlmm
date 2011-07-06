@@ -56,6 +56,8 @@ public:
   
   _WRAP_METHOD(void show_grip(), gdl_dock_item_show_grip)
   
+  _WRAP_METHOD(void notify_selected(), gdl_dock_item_notify_selected)
+  
   _WRAP_METHOD(void bind(Gtk::Widget& dock), gdl_dock_item_bind)
   
   _WRAP_METHOD(void unbind(), gdl_dock_item_unbind)
